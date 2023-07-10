@@ -16,4 +16,9 @@ export class VetturaService {
     const url = `${this.backendUrl}/vetture`; 
     return this.http.get<Vettura[]>(url); 
   }
+
+  getVettureByPersona(id:number):Observable<Vettura[]>{
+    const url = `${this.backendUrl}/vetture/${id}`;
+    return this.http.get<Vettura[]>(url); 
+  }
 }

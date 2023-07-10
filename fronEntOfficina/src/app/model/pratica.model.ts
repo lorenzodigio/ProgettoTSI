@@ -4,6 +4,7 @@ export class Pratica {
     inizioPratica: string;
     finePratica: string;
     incorso: number;
+    descrizione : string;
     fk_id_vettura: number;
     fk_id_persona_pratica: number;
   
@@ -13,6 +14,7 @@ export class Pratica {
       this.inizioPratica = '';
       this.finePratica = '';
       this.incorso = 1;
+      this.descrizione = '';
       this.fk_id_vettura = 0;
       this.fk_id_persona_pratica = 0;
     }

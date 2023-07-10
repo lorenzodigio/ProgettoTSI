@@ -47,6 +47,7 @@ public class PraticaService {
 					praticaDB.setIncorso(1L);
 					
 				}
+				praticaDB.setDescrizione(pratica.getDescrizione());
 				praticaDB.setFkIdVettura(pratica.getFkIdVettura());
 				praticaDB.setFkIdPersona(pratica.getFkIdPersona());
 				praticaR.save(praticaDB);

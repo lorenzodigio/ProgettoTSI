@@ -4,53 +4,78 @@
   <h2>Aggiungi Dati</h2>
 
   <!-- Campo Inizio pratica -->
-  <h3>Inizio Pratica</h3>
   <div>
-    <label for="nome">Nome della Pratica:</label>
-    <input type="text" id="nomePratica" name="nomePratica" [(ngModel)]="pratica.nomePratica" required />
+    <mat-form-field class="">
+      <mat-label for="nome"> Nome della Pratica: </mat-label>
+      <input matInput  name="nomePratica" [(ngModel)]="pratica.nomePratica" required>
+    </mat-form-field>
   </div>
-  <div>
-    <label for="inizioPratica">Inizio della Pratica:</label>
-    <input
-      matInput
-      [matDatepicker]="inizioPraticaDatepicker"
-      placeholder="Seleziona una data"
-      name="inizioPratica"
-      [(ngModel)]="pratica.inizioPratica"
-      required
-      disabled
-    />
-    <mat-datepicker-toggle matSuffix [for]="inizioPraticaDatepicker"></mat-datepicker-toggle>
-    <mat-datepicker #inizioPraticaDatepicker></mat-datepicker>
+
+  <div class = "text">
+    <mat-form-field class="textArea">
+      <mat-label>Descrizione</mat-label>
+      <textarea name ="descrizione " matInput placeholder="Descizione..."></textarea>
+    </mat-form-field>
+    </div>
+    <div class = "iP">
+  <mat-form-field>
+    <mat-label for="inizioPratica">Inizio della Pratica:</mat-label>
+    <input matInput [matDatepicker]="picker" placeholder="seleziona una data" name = "inizioPratica" [(ngModel)]="pratica.inizioPratica"required disabled >
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
   </div>
   
   <!-- Campo a Tendina per le Persone -->
-  <h3>Persona</h3>
   <div>
-    <label for="campoTendina">Campo a Tendina:</label>
-    <mat-select placeholder="Persone" name="campoTendina" [(ngModel)]="persona" required [disabled]="disabilitaMenuVettura || mostraCampiPersona">
+    
+    <mat-select placeholder="Utenti caricati" name ="tenda" [(ngModel)]="persona" required [disabled]="disabilitaMenuVettura || campoPersona" (selectionChange)="selezionaUtente(persona.id)">
       <mat-option *ngFor="let p of persone" [value]="p">{{ p.codiceFiscale }} : {{ p.nome }} {{ p.cognome }}</mat-option>
     </mat-select>
-  
-    <button type="button" (click)="mostraCampiPersona = !mostraCampiPersona">+</button>
+
+    <button type="button" (click)="campoPersona = !campoPersona">+</button>
   </div>
-  <div [hidden]="!mostraCampiPersona">
+  <div [hidden]="!campoPersona">
     <div *ngIf="!personaSelezionata">
       <div>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" [(ngModel)]="persona.nome" required />
+        <mat-form-field class="">
+          <mat-label for="nome"> Nome: </mat-label>
+          <input matInput  name="nome" [(ngModel)]="persona.nome" required>
+        </mat-form-field>
       </div>
       <div>
-        <label for="cognome">Cognome:</label>
-        <input type="text" id="cognome" name="cognome" [(ngModel)]="persona.cognome" required />
+        <mat-form-field class="">
+          <mat-label for="nome"> Cognome: </mat-label>
+          <input matInput  name="cognome" [(ngModel)]="persona.cognome" required>
+        </mat-form-field>
       </div>
       <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" [(ngModel)]="persona.email" required />
+        <mat-form-field class="">
+            <mat-label>Email</mat-label>
+            <input type="email" name = "email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" [(ngModel)]="persona.email"
+                   placeholder="Ex. pat@example.com">
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
       </div>
       <div>
-        <label for="codiceFiscale">Codice Fiscale:</label>
-        <input type="codiceFiscale" id="codiceFiscale" name="codiceFiscale" [(ngModel)]="persona.codiceFiscale" required />
+        <mat-form-field class="">
+          <mat-label>Codice Fiscale</mat-label>
+          <input type="text" name="codiceFiscale" matInput [formControl]="codiceFiscaleControl" [errorStateMatcher]="matcherF" [(ngModel)]="persona.codiceFiscale"
+                 placeholder="DGVLNZ...">
+          <mat-hint>Errors appear instantly!</mat-hint>
+          <mat-error *ngIf="codiceFiscaleControl.hasError('codiceFiscale') && !codiceFiscaleControl.hasError('required')">
+            Please enter a valid Codice Fiscale
+          </mat-error>
+          <mat-error *ngIf="codiceFiscaleControl.hasError('required')">
+            Codice Fiscale is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
   </div>
@@ -60,13 +85,13 @@
   <h3>Vettura</h3>
   <div>
     <mat-select placeholder="Vetture" name="campoTendina" [(ngModel)]="vettura" required [disabled]="disabilitaMenuVettura">
-      <mat-option *ngFor="let v of vetture" [value]="v">{{ v.targa }}:{{ v.modello }}</mat-option>
+      <mat-option *ngFor="let v of vettureFiltrate" [value]="v">{{ v.targa }}:{{ v.modello }}</mat-option>
     </mat-select>
     
 	
-    <button type="button" (click)="mostraCampiVettura = !mostraCampiVettura">+</button>
+    <button type="button" (click)="campoVettura = !campoVettura">+</button>
   </div>
-  <div [hidden]="!mostraCampiVettura">
+  <div [hidden]="!campoVettura">
     <div>
       <label for="targa">Targa:</label>
       <input type="text" id="targa" name="targa" [(ngModel)]="vettura.targa" required />

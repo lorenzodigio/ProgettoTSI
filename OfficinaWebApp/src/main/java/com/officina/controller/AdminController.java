@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,6 +84,11 @@ public class AdminController {
 		return ResponseEntity.ok(v);
 	}
 
+	@GetMapping("/vetture/{id}")
+	public ResponseEntity<Iterable<Vettura>> vettureUtente(@PathVariable Long id) {
+		Iterable<Vettura> v = vetturaS.getVettureUtente(id);
+		return ResponseEntity.ok(v);
+	}
 	/*
 	 * CODICE PRATICA
 	 */
@@ -150,12 +156,12 @@ public class AdminController {
 			return ResponseEntity.ok().build();
 		}
 	}
-	
+
 	/*
 	 * CODICE ARCHIVIO(PRATICHE CONCLUSE)
 	 */
 	/*
-	 * QUESTO METODO RIPRENDE TUTTE LE PRATICHE CONCLUSE 
+	 * QUESTO METODO RIPRENDE TUTTE LE PRATICHE CONCLUSE
 	 */
 	@GetMapping("/archivio")
 	public ResponseEntity<List<DataModel>> getArchivio() {

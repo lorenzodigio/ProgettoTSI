@@ -3,7 +3,9 @@ h2,
 h3 {
   margin-top: 20px;
 }
-
+.textArea {
+  width: 100%;
+}
 form {
   margin-top: 20px;
   display: flex;
