@@ -1,0 +1,32 @@
+
+<app-header></app-header>
+<head>
+    <link rel="stylesheet" href="inserimento-persona.component.css">
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
+    <title>Inserimento Persona</title>
+</head>
+
+<body>
+    <form (ngSubmit)="insertPersona()" id="myForm">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" [(ngModel)]="persona.nome" required>
+
+        <label for="cognome">Cognome:</label>
+        <input type="text" name="cognome" id="cognome" [(ngModel)]="persona.cognome" required>
+        
+        <span id="emailError" class="error-message">{{ emailErrorMessage }}</span>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email" [(ngModel)]="persona.email" required>
+        
+        <span id="codFError" class="error-message">{{ codFErrorMessage }}</span>
+        <label for="codF">Codice Fiscale:</label>
+        <input type="text" name="codF" id="codF" [(ngModel)]="persona.codiceFiscale" required>
+
+        <button type="submit">Salva  </button>
+    </form>
+</body>
+<app-footer></app-footer>

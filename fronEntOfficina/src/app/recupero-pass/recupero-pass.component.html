@@ -1,0 +1,14 @@
+
+<body>
+    <h2>Password Dimenticata</h2>
+    <form id="myForm">
+        <div>
+            <label for="codiceFiscale">Codice Fiscale:</label>
+            <input type="text" id="codiceFiscale" name="codiceFiscale" [(ngModel)]="codiceFiscale" required>
+        </div>
+        <div>
+            <button type="submit" (click)="inviaRichiestaRecupero(codiceFiscale)">Invia</button>
+        </div>
+    </form>
+</body>
+

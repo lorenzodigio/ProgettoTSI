@@ -1,0 +1,72 @@
+<app-header></app-header>
+	<button class="icon"  routerLink="/admin/home/inserimentoPersona">
+    <fa-icon [icon]="faPlus"></fa-icon>
+</button>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Email</th>
+            <th>Codice Fiscale</th>
+            <th>Ruolo</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of persone">
+        <td>{{ persona.id }}</td>
+        <td>
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput [id]="'nome-' + persona.id" [disabled]="!isModificaEnabled[persona.id]"
+              [(ngModel)]="persona.nome" />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Cognome</mat-label>
+            <input matInput [id]="'cognome-' + persona.id" [disabled]="!isModificaEnabled[persona.id]"
+              [(ngModel)]="persona.cognome" />
+          </mat-form-field>
+        </td>
+        <td>
+          <span [id]="'emailError-' + persona.id"></span>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput [id]="'Email-' + persona.id" [disabled]="!isModificaEnabled[persona.id]"
+              [(ngModel)]="persona.email" />
+          </mat-form-field>
+        </td>
+        <td>
+          <span [id]="'codFError-' + persona.id"></span>
+          <mat-form-field>
+            <mat-label>Codice Fiscale</mat-label>
+            <input matInput [id]="'codF-' + persona.id" [disabled]="!isModificaEnabled[persona.id]"
+              [(ngModel)]="persona.codiceFiscale" />
+          </mat-form-field>
+        </td>
+        <td>
+          <select [id]="'ruolo-' + persona.id" [disabled]="!isModificaEnabled[persona.id]" [(ngModel)]="persona.ruolo">
+            <option value="1" [selected]="persona.ruolo == 1">Amministratore</option>
+            <option value="0" [selected]="persona.ruolo == 0">Utente</option>
+          </select>
+        </td>
+        <td>
+          <button *ngIf="isModificaEnabled[persona.id]; else editButton" (click)="modificaPersona(persona.id)">
+            <fa-icon [icon]="faSave"></fa-icon>
+          </button>
+          <ng-template #editButton>
+            <button (click)="abilitaModifica(persona.id)">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+          </ng-template>
+          <button class="elimina" (click)="eliminaPersona(persona.id)">
+            <fa-icon [icon]="faTrashAlt" ></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>    
+</table>
+<app-footer></app-footer>

@@ -1,0 +1,20 @@
+<h2>Login</h2>
+<form (ngSubmit)="submitLogin()">
+  <div>
+    <label for="username">User-name:</label>
+    <input type="text" id="username" name="username" [(ngModel)]="login.codiceFiscale" required>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" [(ngModel)]="login.password" required>
+  </div>
+  <div>
+    <label for="rememberMe">Remember Me:</label>
+    <input type="checkbox" id="rememberMe" name="rememberMe" [(ngModel)]="rememberMe">
+  </div>
+  <a routerLink="/login/recuperoPassword">Password Dimenticata? </a>
+  <div>
+    <button type="submit">Login</button>
+  </div>
+</form>
+<app-footer></app-footer>

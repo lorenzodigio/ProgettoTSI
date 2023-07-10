@@ -1,0 +1,18 @@
+package com.officina.repository;
+
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import com.officina.entity.Pratica;
+
+public interface PraticaRepository extends JpaRepository<Pratica, Long> {
+    @Query("SELECT p FROM Pratica p WHERE p.incorso = 0 ORDER BY p.finePratica DESC")
+    List<Pratica> findPraticaByStato();
+
+    @Query("SELECT p FROM Pratica p WHERE p.incorso = 1")
+    List<Pratica> findPraticaInLavorazione();
+
+    List<Pratica> findAllByFkIdPersona(Long FkId);
+
+}
+

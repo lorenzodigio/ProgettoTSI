@@ -1,0 +1,25 @@
+<header>
+  <nav>
+    <div class="logo">
+      <a [routerLink]="isAdmin ? '/admin/home' : '/home'">
+        <img src="/assets/logo.png" alt="logo">
+      </a>
+    </div>
+    <ul class="navigation">
+      <li *ngIf="isAdmin">
+        <a routerLink="/admin/home/utenti">Utenti</a>
+      </li>
+      <li>
+        <a [routerLink]="isAdmin ? '/admin/home/pratiche' : '/home/pratiche'">Pratiche</a>
+      </li>
+      <li>
+        <a [routerLink]="isAdmin ? '/admin/home/archivio' : '/home/archivio'">Archivio</a>
+      </li>
+    </ul>
+    <div class="user-info">
+      <span class="username">{{ username }}</span>
+      <span class="username">{{ surname }}</span>
+      <button class="logout-button" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+</header>

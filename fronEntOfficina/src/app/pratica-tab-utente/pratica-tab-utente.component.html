@@ -1,0 +1,71 @@
+<app-header></app-header>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome Pratica</th>
+      <th>Inizio Pratica</th>
+      <th>In Lavorazione</th>
+      <th>Fine Pratica</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let pratica of pratiche">
+      <tr (click)="toggleDettagliPratica(pratica)">
+        <td>{{ pratica.id }}</td>
+        <td>
+          <mat-form-field>
+            <mat-label>Nome Pratica</mat-label>
+            <input matInput [id]="'nomePratica-' + pratica.id" [disabled]= "true" [(ngModel)]="pratica.nomePratica" />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput [id]="'inizioPratica-' + pratica.id" [disabled]="true" readonly [(ngModel)]="pratica.inizioPratica" class="datepicker-input" [matDatepicker]="inizioPraticaPicker">
+            <mat-datepicker-toggle matSuffix [for]="inizioPraticaPicker"></mat-datepicker-toggle>
+            <mat-datepicker #inizioPraticaPicker></mat-datepicker>
+          </mat-form-field>
+        </td>
+        <td>
+          <select [id]="'ruolo-' + pratica.id" [disabled]="true" [(ngModel)]="pratica.incorso">
+            <option value="1" [selected]="pratica.incorso == 1">Si</option>
+            <option value="0" [selected]="pratica.incorso == 0">No</option>
+          </select>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput [id]="'finePratica' + pratica.id" [disabled]="true" [(ngModel)]="pratica.finePratica" class="datepicker-input" [matDatepicker]="finePraticaPicker">
+            <mat-datepicker-toggle matSuffix [for]="finePraticaPicker"></mat-datepicker-toggle>
+            <mat-datepicker #finePraticaPicker></mat-datepicker>
+          </mat-form-field>
+        </td>
+
+      </tr>
+      <tr *ngIf="isDettagliPraticaVisible(pratica) ">
+        <td colspan="6">
+          <div class="overlay" [class.visible]="dettagliPraticaVisible" (click)="chiudiDettagliPratica()">
+            <div class="modal">
+              <div class="persona-info">
+                <h2>Utente:</h2>
+                <p>ID Utente: {{ personaSelezionata?.id }}</p>
+                <p>Nome: {{ personaSelezionata?.nome }}</p>
+                <p>Cognome: {{ personaSelezionata?.cognome }}</p>
+                <p>Email: {{ personaSelezionata?.email }}</p>
+                <p>Codice Fiscale: {{ personaSelezionata?.codiceFiscale }}</p>
+              </div>
+          
+              <div class="vettura-info">
+                <h2>Informazioni della vettura associata</h2>
+                <p>Targa: {{ vetturaSelezionata?.targa }}</p>
+                <p>Modello: {{ vetturaSelezionata?.modello }}</p>
+                <p>Anno immatricolazione della macchina: {{ vetturaSelezionata?.immatricolazione }}</p>
+              </div>
+            </div>
+          </div>
+          
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<app-footer></app-footer>

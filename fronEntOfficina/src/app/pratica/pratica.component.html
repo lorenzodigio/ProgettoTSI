@@ -1,0 +1,109 @@
+<app-header></app-header>
+
+<form (ngSubmit)="aggiungiDati()" #form="ngForm">
+  <h2>Aggiungi Dati</h2>
+
+  <!-- Campo Inizio pratica -->
+  <h3>Inizio Pratica</h3>
+  <div>
+    <label for="nome">Nome della Pratica:</label>
+    <input type="text" id="nomePratica" name="nomePratica" [(ngModel)]="pratica.nomePratica" required />
+  </div>
+  <div>
+    <label for="inizioPratica">Inizio della Pratica:</label>
+    <input
+      matInput
+      [matDatepicker]="inizioPraticaDatepicker"
+      placeholder="Seleziona una data"
+      name="inizioPratica"
+      [(ngModel)]="pratica.inizioPratica"
+      required
+      disabled
+    />
+    <mat-datepicker-toggle matSuffix [for]="inizioPraticaDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #inizioPraticaDatepicker></mat-datepicker>
+  </div>
+  
+  <!-- Campo a Tendina per le Persone -->
+  <h3>Persona</h3>
+  <div>
+    <label for="campoTendina">Campo a Tendina:</label>
+    <mat-select placeholder="Persone" name="campoTendina" [(ngModel)]="persona" required [disabled]="disabilitaMenuVettura || mostraCampiPersona">
+      <mat-option *ngFor="let p of persone" [value]="p">{{ p.codiceFiscale }} : {{ p.nome }} {{ p.cognome }}</mat-option>
+    </mat-select>
+  
+    <button type="button" (click)="mostraCampiPersona = !mostraCampiPersona">+</button>
+  </div>
+  <div [hidden]="!mostraCampiPersona">
+    <div *ngIf="!personaSelezionata">
+      <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" [(ngModel)]="persona.nome" required />
+      </div>
+      <div>
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome" name="cognome" [(ngModel)]="persona.cognome" required />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="persona.email" required />
+      </div>
+      <div>
+        <label for="codiceFiscale">Codice Fiscale:</label>
+        <input type="codiceFiscale" id="codiceFiscale" name="codiceFiscale" [(ngModel)]="persona.codiceFiscale" required />
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Campo a Tendina per le Vetture -->
+  <h3>Vettura</h3>
+  <div>
+    <mat-select placeholder="Vetture" name="campoTendina" [(ngModel)]="vettura" required [disabled]="disabilitaMenuVettura">
+      <mat-option *ngFor="let v of vetture" [value]="v">{{ v.targa }}:{{ v.modello }}</mat-option>
+    </mat-select>
+    
+	
+    <button type="button" (click)="mostraCampiVettura = !mostraCampiVettura">+</button>
+  </div>
+  <div [hidden]="!mostraCampiVettura">
+    <div>
+      <label for="targa">Targa:</label>
+      <input type="text" id="targa" name="targa" [(ngModel)]="vettura.targa" required />
+    </div>
+    <div>
+      <label for="modello">Modello:</label>
+      <input type="text" id="modello" name="modello" [(ngModel)]="vettura.modello" required />
+      <div>
+        <label for="immatricolazione">Immatricolazione vettura:</label>
+        <input
+          matInput
+          [matDatepicker]="immatricolazioneDatepicker"
+          placeholder="Seleziona una data"
+          name="immatricolazione"
+          [(ngModel)]="vettura.immatricolazione"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="immatricolazioneDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #immatricolazioneDatepicker></mat-datepicker>
+      </div>
+      <div>
+        <label for="tagliando">Tagliando vettura:</label>
+        <input
+          matInput
+          [matDatepicker]="tagliandoDatepicker"
+          placeholder="Seleziona una data"
+          name="tagliando"
+          [(ngModel)]="vettura.tagliando"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="tagliandoDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #tagliandoDatepicker></mat-datepicker>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!form.valid">Aggiungi</button>
+</form>
+
+<app-footer></app-footer>
