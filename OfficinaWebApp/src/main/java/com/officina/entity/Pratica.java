@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +31,10 @@ public class Pratica {
 	@Column(name = "incorso")
 	private Long incorso;
 	
+	@Lob
+	@Column(name = "descrizione")
+	private String descrizione;
+	
 	@Column(name = "fk_id_vettura")
 	private Long fkIdVettura;
 	
@@ -39,7 +44,7 @@ public class Pratica {
 	public Pratica() {
 	}
 
-	public Pratica(Long id, String nomePratica, Date inizioPratica, Date finepratica, Long incorso, Long fk_id_vettura,Long fk_id_persona) {
+	public Pratica(Long id, String nomePratica, Date inizioPratica, Date finepratica, Long incorso, String descrizione,Long fk_id_vettura,Long fk_id_persona) {
 		this.id = id;
 		this.nomePratica = nomePratica;
 		this.inizioPratica = inizioPratica;
@@ -89,6 +94,14 @@ public class Pratica {
 	    this.incorso = incorso;
 	}
 
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
 	public Long getFkIdVettura() {
 	    return fkIdVettura;
 	}
@@ -104,6 +117,4 @@ public class Pratica {
 	public void setFkIdPersona(Long fk_id_persona) {
 	    this.fkIdPersona = fk_id_persona;
 	}
-	
-	
 }
