@@ -41,9 +41,9 @@
         </td>
         <td>
           <mat-form-field>
-            <input matInput [id]="'finePratica' + pratica.id" [disabled]="!isModificaEnabled[pratica.id]" [(ngModel)]="pratica.finePratica" class="datepicker-input" [matDatepicker]="finePraticaPicker">
-            <mat-datepicker-toggle matSuffix [for]="finePraticaPicker"></mat-datepicker-toggle>
-            <mat-datepicker #finePraticaPicker></mat-datepicker>
+            <input matInput [id]="'finePratica' + pratica.id" [disabled]="!isModificaEnabled[pratica.id]" [(ngModel)]="pratica.finePratica" class="datepicker-input" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </td>
         <td>

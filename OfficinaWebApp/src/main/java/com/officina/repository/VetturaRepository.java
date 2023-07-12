@@ -11,5 +11,5 @@ public interface VetturaRepository extends JpaRepository<Vettura, Long> {
 	
 	boolean existsByTarga(String targa);
 	
-	List<Vettura> findAllByFkIdPersona(Long FkId);
+	List<Vettura> findAllByFkIdPersona(Long fkIdPersona);
 }

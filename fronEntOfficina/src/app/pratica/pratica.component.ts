@@ -78,8 +78,16 @@ export class PraticaComponent {
 
 
 
-
   aggiungiDati() {
+    if (this.vettura.tagliando && this.vettura.immatricolazione) {
+      const tagliandoDate = new Date(this.vettura.tagliando);
+      const immatricolazioneDate = new Date(this.vettura.immatricolazione);
+  
+      if (tagliandoDate < immatricolazioneDate) {
+        alert('La data del tagliando non può essere precedente alla data di immatricolazione.');
+        return; // Esce dalla funzione per impedire l'inserimento
+      }
+    }
     const data = {
       pratica: this.pratica,
       persona: this.persona,

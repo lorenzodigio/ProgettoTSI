@@ -21,7 +21,7 @@ public class VetturaService {
 	public Vettura aggiungiVettura(Vettura v) {
 		List<Vettura> vettureEsistenti = vetturaR.findByTarga(v.getTarga());
 		if (!vettureEsistenti.isEmpty()) {
-			return vettureEsistenti.get(0); // Restituisci il primo risultato trovato
+			return vettureEsistenti.get(0);
 		} else {
 			return vetturaR.save(v);
 		}

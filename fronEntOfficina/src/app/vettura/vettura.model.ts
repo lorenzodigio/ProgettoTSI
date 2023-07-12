@@ -2,9 +2,9 @@ export class Vettura {
     id:number;
     targa: string;
     modello: string;
-
     immatricolazione: string;
     tagliando: Date;
+    kilometraggio: number;
     fk_id_persona: number;
   
     constructor() {
@@ -13,6 +13,7 @@ export class Vettura {
       this.modello = '';
       this.immatricolazione = '';
       this.tagliando = new Date();
+      this.kilometraggio = 0 ;
       this.fk_id_persona = 0;
     }
 
