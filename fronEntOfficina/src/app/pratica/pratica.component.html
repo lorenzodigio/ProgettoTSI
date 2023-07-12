@@ -87,9 +87,8 @@
     <mat-select placeholder="Vetture" name="campoTendina" [(ngModel)]="vettura" required [disabled]="disabilitaMenuVettura">
       <mat-option *ngFor="let v of vettureFiltrate" [value]="v">{{ v.targa }}:{{ v.modello }}</mat-option>
     </mat-select>
-    
-	
-    <button type="button" (click)="campoVettura = !campoVettura">+</button>
+  
+    <button type="button" (click)="campoVettura = !campoVettura" [disabled]="personaSelezionata || campoPersona">+</button>
   </div>
   <div [hidden]="!campoVettura">
     <div>

@@ -13,7 +13,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
-
+import {MatDividerModule} from '@angular/material/divider';
 
 import { AppComponent } from './app.component';
 import { InserimentoPersonaComponent } from './inserimento Persona/inserimento-persona.component';
@@ -66,7 +66,8 @@ import { PraticaTabUtenteComponent } from './pratica-tab-utente/pratica-tab-uten
     MatNativeDateModule,
     MatMomentDateModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule
   ],
   providers: [AuthService, BodyClickService,RecuperoService,AuthGuard],
   bootstrap: [AppComponent]

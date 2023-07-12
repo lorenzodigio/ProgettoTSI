@@ -104,7 +104,8 @@ export class PraticaComponent {
   }
   mostraCampoPersona() {
     this.campoPersona = !this.campoPersona;
-    this.disabilitaMenuVettura = this.campoPersona; // Disabilita il menu a tendina della vettura se i campi della persona sono visibili
+    this.disabilitaMenuVettura = this.campoPersona; 
+    this.campoVettura = false;
   }
   
   
