@@ -21,7 +21,6 @@ export class UtenteViewComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authService.getCurrentUser();
-    console.log('Utente' + JSON.stringify(this.currentUser));
     this.caricavetturaUtente();
     
   }

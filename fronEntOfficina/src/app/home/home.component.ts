@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-
+import { AuthService } from '../login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +7,14 @@ import { Component} from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent  {
+  isAdmin: boolean = false;
+  constructor(private authService : AuthService) {}
 
 
-  constructor() {}
-
+  ngOnInit(): void {
+    this.isAdmin = localStorage.getItem('isAdmin') === 'true';
+    console.log(this.isAdmin)
+  }
+  
 
 }

@@ -38,12 +38,4 @@ export class AuthService {
   login(login: Login): Observable<any> {
     return this.http.post(this.loginUrl, login);
   }
-    // Metodi per impostare e ottenere lo stato dell'amministratore
-    setAdminStatus(status: boolean): void {
-      this.isAdmin = status;
-    }
-  
-    getAdminStatus(): boolean {
-      return this.isAdmin;
-    }
 }

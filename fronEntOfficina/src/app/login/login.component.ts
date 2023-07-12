@@ -58,9 +58,7 @@ export class LoginComponent {
           localStorage.setItem('isAdmin', 'false');
           sessionStorage.setItem('isAdmin', 'false');
           this.router.navigate(['/home']);
-          this.isAdmin = false;
         }
-        this.authService.setAdminStatus(this.isAdmin);
       },
       error: (error) => {
         let errorMessage = 'Login non riuscito';

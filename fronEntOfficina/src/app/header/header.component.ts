@@ -32,12 +32,9 @@ export class HeaderComponent {
     }
   }
 
-
-
   logout(): void {
     this.authService.removeCurrentUser();
     localStorage.removeItem('isAdmin');
-    this.authService.setAdminStatus(false);
     this.router.navigate(['/login']);
     console.log('Sono sloggato');
   }
