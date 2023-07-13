@@ -1,6 +1,6 @@
 <h2>Login</h2>
 <form (ngSubmit)="submitLogin()">
-  <div>
+  <div class = "login">
     <label for="username">User-name:</label>
     <input type="text" id="username" name="username" [(ngModel)]="login.codiceFiscale" required>
   </div>
@@ -14,7 +14,6 @@
   </div>
   <a routerLink="/login/recuperoPassword">Password Dimenticata? </a>
   <div>
-    <button type="submit">Login</button>
+      <button mat-raised-button  type="submit"> Login</button>
   </div>
 </form>
-<app-footer></app-footer>

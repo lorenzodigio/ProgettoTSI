@@ -34,6 +34,7 @@ import { PraticaTabComponent } from './pratica-tab/pratica-tab.component';
 import { ArchivioComponent } from './archivio/archivio.component';
 import { UtenteViewComponent } from './utente-view/utente-view.component';
 import { PraticaTabUtenteComponent } from './pratica-tab-utente/pratica-tab-utente.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { PraticaTabUtenteComponent } from './pratica-tab-utente/pratica-tab-uten
     PraticaTabComponent,
     ArchivioComponent,
     UtenteViewComponent,
-    PraticaTabUtenteComponent
+    PraticaTabUtenteComponent,
+    AdminViewComponent
   ],
   imports: [
     BrowserModule,
