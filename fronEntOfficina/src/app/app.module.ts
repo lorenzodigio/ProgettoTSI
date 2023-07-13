@@ -14,6 +14,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 import { AppComponent } from './app.component';
 import { InserimentoPersonaComponent } from './inserimento Persona/inserimento-persona.component';
@@ -69,7 +72,9 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     MatMomentDateModule,
     MatIconModule,
     MatExpansionModule,
-    MatDividerModule
+    MatDividerModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [AuthService, BodyClickService,RecuperoService,AuthGuard],
   bootstrap: [AppComponent]

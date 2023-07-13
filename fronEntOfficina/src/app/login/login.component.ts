@@ -16,6 +16,7 @@ export class LoginComponent {
   rememberMe = false;
   savedUsername = '';
   savedPassword = '';
+  hide : boolean = true;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -70,4 +71,7 @@ export class LoginComponent {
       },
     });
   }
+}
+export class FormFieldPrefixSuffixExample {
+  hide = false;
 }

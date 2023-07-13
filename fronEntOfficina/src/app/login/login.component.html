@@ -1,19 +1,58 @@
-<h2>Login</h2>
 <form (ngSubmit)="submitLogin()">
-  <div class = "login">
-    <label for="username">User-name:</label>
-    <input type="text" id="username" name="username" [(ngModel)]="login.codiceFiscale" required>
+<div class = "all">
+  <div class="Mycontainer">
+    <div class = "header">
+    <img src="/assets/logo.png" alt="logo">
+    <h1>Officina Veneta Login</h1>
+    </div>
+    <div class="campi">
+
+      <div class="login">
+        <mat-form-field class="input">
+          <mat-label>Codice Fiscale</mat-label>
+          <input
+            matInput
+            placeholder="Codice Fiscale"
+            name="username"
+            [(ngModel)]="login.codiceFiscale"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="">
+          <mat-label>PassWord</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            placeholder="password"
+            name="password"
+            [(ngModel)]="login.password"
+            required
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="">
+        <mat-checkbox name="rememberMe" [(ngModel)]="rememberMe"
+          >Remember Me</mat-checkbox
+        >
+      </div>
+      <a mat-stroked-button routerLink="/login/recuperoPassword"
+        >Password Dimenticata?
+      </a>
+      <div class="login-button">
+        <button mat-raised-button type="submit">Login</button>
+      </div>
+    </div>
   </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" [(ngModel)]="login.password" required>
-  </div>
-  <div>
-    <label for="rememberMe">Remember Me:</label>
-    <input type="checkbox" id="rememberMe" name="rememberMe" [(ngModel)]="rememberMe">
-  </div>
-  <a routerLink="/login/recuperoPassword">Password Dimenticata? </a>
-  <div>
-      <button mat-raised-button  type="submit"> Login</button>
-  </div>
+</div>
 </form>
