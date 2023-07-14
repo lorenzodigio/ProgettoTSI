@@ -16,6 +16,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { ArchivioComponent } from './archivio/archivio.component';
 import { UtenteViewComponent } from './utente-view/utente-view.component';
 import { PraticaTabUtenteComponent } from './pratica-tab-utente/pratica-tab-utente.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
+import { PopupDialogComponent } from './popup-dialog/popup-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +56,8 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     ArchivioComponent,
     UtenteViewComponent,
     PraticaTabUtenteComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    PopupDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     MatExpansionModule,
     MatDividerModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [AuthService, BodyClickService,RecuperoService,AuthGuard],
   bootstrap: [AppComponent]

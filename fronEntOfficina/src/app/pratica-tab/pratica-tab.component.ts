@@ -8,12 +8,14 @@ import {
   faTrashAlt,
   faSave,
 } from '@fortawesome/free-solid-svg-icons';
-
+import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
 import { Router } from '@angular/router';
 import { Vettura } from '../vettura/vettura.model';
 import { Persona } from '../inserimento Persona/persona.model';
 import * as moment from 'moment';
 import { dataModel } from './data.model';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-praticaTab',
@@ -42,7 +44,8 @@ export class PraticaTabComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private praticaTabService: PraticaTabService,
-    private router: Router
+    private router: Router,
+    private dialog : MatDialog
   ) {}
 
   ngOnInit() {
@@ -175,5 +178,19 @@ export class PraticaTabComponent implements OnInit {
   // Funzione per chiudere i dettagli della pratica quando viene cliccato l'overlay
   chiudiDettagliPratica() {
     this.dettagliPraticaVisible = false;
+  }
+  apriDialog(pratica: Pratica) {
+    const dialogRef = this.dialog.open(PopupDialogComponent, {
+      height: '400px',
+      width: '600px',
+      data: {
+        persona: this.personaSelezionata,
+        vettura: this.vetturaSelezionata
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog chiuso');
+    });
   }
 }
