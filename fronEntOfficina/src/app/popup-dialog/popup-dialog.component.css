@@ -1,0 +1,10 @@
+.persona-info{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.vettura-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
