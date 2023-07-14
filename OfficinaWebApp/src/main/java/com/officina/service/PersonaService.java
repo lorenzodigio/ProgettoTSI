@@ -40,10 +40,10 @@ public class PersonaService {
 	 * FISCALE GIA ALL'INTERNO DEL DB SE VIENE TROVATO,L'UTENTE NON VIENE CREATO E
 	 * VIENE REINDIRIZZATO SULLA PAGINA DI CREAZIONE DELLA PERSONA
 	 */
-	public boolean inserisciPersona(Persona persona) {
+	public Persona inserisciPersona(Persona persona) {
 		Persona existingPersona = personaR.findByCodiceFiscale(persona.getCodiceFiscale());
 		if (existingPersona != null) {
-			return false; // La persona esiste già nel database
+			return null; // La persona esiste già nel database
 		}
 
 		persona.setPassword(GeneraPassword());
@@ -59,7 +59,7 @@ public class PersonaService {
 			emailsender.sendEmail(savedPersona.getEmail(), subject, body);
 		}
 
-		return true;
+		return savedPersona;
 	}
 
 //	

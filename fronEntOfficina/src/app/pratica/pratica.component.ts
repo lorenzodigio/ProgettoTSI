@@ -73,6 +73,7 @@ export class PraticaComponent {
     this.vetturaService.getVettureByPersona(id).subscribe((vetture: Vettura[]) => {
       this.vettureFiltrate = vetture;
       console.log(this.vettureFiltrate)
+      this.personaSelezionata = true;
     });
   }
 
@@ -112,9 +113,12 @@ export class PraticaComponent {
   }
   mostraCampoPersona() {
     this.campoPersona = !this.campoPersona;
-    this.disabilitaMenuVettura = this.campoPersona; 
     this.campoVettura = false;
   }
+  showCampiVettura() {
+      this.campoVettura = !this.campoVettura;
+      this.campoPersona = false;
+    }
   
   
   codiceFiscaleValidator(control: AbstractControl): ValidationErrors | null {

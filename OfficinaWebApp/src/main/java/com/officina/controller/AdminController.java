@@ -44,7 +44,7 @@ public class AdminController {
 	@PostMapping("/salva")
 	public ResponseEntity<String> salvaPersona(@RequestBody Persona persona) {
 
-		if (!personaS.inserisciPersona(persona)) {
+		if (persona != null) {
 			return ResponseEntity.badRequest().build();
 		} else {
 		}
@@ -125,8 +125,8 @@ public class AdminController {
 			p.setId(personaEsistente.getId());
 
 		} else {
-			personaS.inserisciPersona(p);
-			personaEsistente = p;
+			 personaEsistente = personaS.inserisciPersona(p);
+			
 		}
 		v.setFk_id_persona(personaEsistente.getId());
 		Vettura vetturaInserita = vetturaS.aggiungiVettura(v);
@@ -134,7 +134,7 @@ public class AdminController {
 			pratica.setFkIdVettura(vetturaInserita.getId());
 
 		}
-		pratica.setFkIdPersona(p.getId());
+		pratica.setFkIdPersona(personaEsistente.getId());
 		praticaS.aggiungiPratica(pratica);
 		return ResponseEntity.ok().build();
 	}
