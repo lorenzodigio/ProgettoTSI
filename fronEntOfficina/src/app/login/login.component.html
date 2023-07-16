@@ -1,58 +1,57 @@
 <form (ngSubmit)="submitLogin()">
-<div class = "all">
-  <div class="Mycontainer">
-    <div class = "header">
-    <img src="/assets/logo.png" alt="logo">
-    <h1>Officina Veneta Login</h1>
-    </div>
-    <div class="campi">
-
-      <div class="login">
-        <mat-form-field class="input">
-          <mat-label>Codice Fiscale</mat-label>
-          <input
-            matInput
-            placeholder="Codice Fiscale"
-            name="username"
-            [(ngModel)]="login.codiceFiscale"
-            required
-          />
-        </mat-form-field>
+  <div class="all">
+    <div class="Mycontainer">
+      <div class="header">
+        <img src="/assets/logo.png" alt="logo" />
+        <h1>Officina Veneta Login</h1>
       </div>
-      <div>
-        <mat-form-field class="">
-          <mat-label>PassWord</mat-label>
-          <input
-            matInput
-            [type]="hide ? 'password' : 'text'"
-            placeholder="password"
-            name="password"
-            [(ngModel)]="login.password"
-            required
-          />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
+      <div class="campi">
+        <div class="login">
+          <mat-form-field class="">
+            <mat-label>Codice Fiscale</mat-label>
+            <input
+              matInput
+              placeholder="Codice Fiscale"
+              name="username"
+              [(ngModel)]="login.codiceFiscale"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="">
+            <mat-label>PassWord</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              placeholder="password"
+              name="password"
+              [(ngModel)]="login.password"
+              required
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="">
+          <mat-checkbox name="rememberMe" [(ngModel)]="rememberMe"
+            >Remember Me</mat-checkbox
           >
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-      <div class="">
-        <mat-checkbox name="rememberMe" [(ngModel)]="rememberMe"
-          >Remember Me</mat-checkbox
-        >
-      </div>
-      <a mat-stroked-button routerLink="/login/recuperoPassword"
-        >Password Dimenticata?
-      </a>
-      <div class="login-button">
-        <button mat-raised-button type="submit">Login</button>
+        </div>
+        <a mat-stroked-button routerLink="/login/recuperoPassword"
+          >Password Dimenticata?
+        </a>
+        <div class="login-button">
+          <button mat-raised-button type="submit">Login</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </form>

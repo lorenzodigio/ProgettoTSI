@@ -17,6 +17,7 @@
     height: 50%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     border-radius: 30px;
+
 }
 .campi{
     display: flex;
