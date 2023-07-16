@@ -40,6 +40,7 @@ import { UtenteViewComponent } from './utente-view/utente-view.component';
 import { PraticaTabUtenteComponent } from './pratica-tab-utente/pratica-tab-utente.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { PopupDialogComponent } from './popup-dialog/popup-dialog.component';
+import { ArchivioUtenteComponent } from './archivio-utente/archivio-utente.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +58,8 @@ import { PopupDialogComponent } from './popup-dialog/popup-dialog.component';
     UtenteViewComponent,
     PraticaTabUtenteComponent,
     AdminViewComponent,
-    PopupDialogComponent
+    PopupDialogComponent,
+    ArchivioUtenteComponent
   ],
   imports: [
     BrowserModule,

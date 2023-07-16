@@ -16,7 +16,6 @@ public class PraticaService {
 	}
 
 	public Iterable<Pratica> findPratica() {
-
 		return praticaR.findPraticaInLavorazione();
 	}
 
@@ -68,6 +67,9 @@ public class PraticaService {
 	}
 	
 	public List<Pratica> getPraticheUtente(Long id){
-		return praticaR.findAllByFkIdPersona(id);
+		return praticaR.findPraticaInLavorazioneByUser(id);
+	}
+	public List<Pratica> getArchivioUtente(Long id){
+		return praticaR.findPraticaChiusaByUser(id);
 	}
 }

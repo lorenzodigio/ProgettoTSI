@@ -10,6 +10,7 @@ import { PraticaTabComponent } from './pratica-tab/pratica-tab.component';
 import { AuthGuard } from './auth-guard.service';
 import { ArchivioComponent } from './archivio/archivio.component';
 import { PraticaTabUtenteComponent } from './pratica-tab-utente/pratica-tab-utente.component';
+import { ArchivioUtenteComponent } from './archivio-utente/archivio-utente.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'/login', pathMatch:'full' },
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: "admin/home/pratiche", component:PraticaTabComponent,canActivate: [AuthGuard]},
   { path: "admin/home/aggiungiPratica", component:PraticaComponent,canActivate: [AuthGuard]},
   {path: "admin/home/archivio", component:ArchivioComponent,canActivate: [AuthGuard]},
-  {path:"home/pratiche", component:PraticaTabUtenteComponent, canActivate:[AuthGuard]}
+  {path:"home/pratiche", component:PraticaTabUtenteComponent, canActivate:[AuthGuard]},
+  {path:"home/archivio", component:ArchivioUtenteComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

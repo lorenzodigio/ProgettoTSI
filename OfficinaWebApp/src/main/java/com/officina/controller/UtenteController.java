@@ -57,5 +57,25 @@ public class UtenteController {
 
 		return ResponseEntity.ok(richiestaList);
 	}
+	
+	@GetMapping("/home/archivioUtente/{id}")
+	public ResponseEntity<Iterable<DataModel>> getArchivioUtente(@PathVariable Long id){
+		Iterable<Pratica> praticaList = praticaS.getArchivioUtente(id);
 
+		List<DataModel> richiestaList = new ArrayList<>();
+		for (Pratica pratica : praticaList) {
+			Long idPersona = pratica.getFkIdPersona();
+			Long idVettura = pratica.getFkIdVettura();
+			Optional<Vettura> vettura = vetturaS.vetturaId(idVettura);
+			Optional<Persona> persona = personaS.PersonaId(idPersona);
+
+			DataModel richiesta = new DataModel();
+			richiesta.setPratica(pratica);
+			richiesta.setVettura(vettura.orElse(null));
+			richiesta.setPersona(persona.orElse(null));
+			richiestaList.add(richiesta);
+		}
+
+		return ResponseEntity.ok(richiestaList);
+	}
 }

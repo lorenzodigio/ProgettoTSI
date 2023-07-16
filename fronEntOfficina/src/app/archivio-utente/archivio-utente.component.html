@@ -1,0 +1,76 @@
+<app-header></app-header>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome Pratica</th>
+      <th>Inizio Pratica</th>
+      <th>In Lavorazione</th>
+      <th>Fine Pratica</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let pratica of pratiche">
+      <tr (click)="apriDialog(pratica)">
+        <td>{{ pratica.id }}</td>
+        <td>
+          <mat-form-field>
+            <mat-label>Nome Pratica</mat-label>
+            <input
+              matInput
+              [id]="'nomePratica-' + pratica.id"
+              [disabled]="true"
+              [(ngModel)]="pratica.nomePratica"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              [id]="'inizioPratica-' + pratica.id"
+              [disabled]="true"
+              readonly
+              [(ngModel)]="pratica.inizioPratica"
+              class="datepicker-input"
+              [matDatepicker]="inizioPraticaPicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="inizioPraticaPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #inizioPraticaPicker></mat-datepicker>
+          </mat-form-field>
+        </td>
+        <td>
+          <select
+            [id]="'ruolo-' + pratica.id"
+            [disabled]="true"
+            [(ngModel)]="pratica.incorso"
+          >
+            <option value="1" [selected]="pratica.incorso == 1">Si</option>
+            <option value="0" [selected]="pratica.incorso == 0">No</option>
+          </select>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              [id]="'finePratica' + pratica.id"
+              [disabled]="true"
+              [(ngModel)]="pratica.finePratica"
+              class="datepicker-input"
+              [matDatepicker]="finePraticaPicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="finePraticaPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #finePraticaPicker></mat-datepicker>
+          </mat-form-field>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<app-footer></app-footer>

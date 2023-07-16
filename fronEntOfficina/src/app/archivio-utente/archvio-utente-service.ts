@@ -6,13 +6,13 @@ import { dataModel } from '../pratica-tab/data.model';
 @Injectable({
   providedIn: 'root',
 })
-export class PraticaTabUtenteService {
+export class ArchivioUtenteService {
   private backendUrl = 'http://localhost:8080/home';
 
   constructor(private http: HttpClient) {}
 
   getPraticaUtente(id:number): Observable<dataModel[]> {
-    const url = `${this.backendUrl}/praticheUtente/${id}`; 
+    const url = `${this.backendUrl}/archivioUtente/${id}`; 
     return this.http.get<dataModel[]>(url); 
   }
 }

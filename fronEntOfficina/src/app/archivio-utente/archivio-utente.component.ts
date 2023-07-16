@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PraticaTabUtenteService } from './pratica-tab-utente.service';
+
 import { Pratica } from '../model/pratica.model';
 import {
   faPlus,
@@ -14,13 +14,14 @@ import { dataModel } from '../pratica-tab/data.model';
 import { AuthService } from '../login/login.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
+import { ArchivioUtenteService } from './archvio-utente-service';
 
 @Component({
-  selector: 'app-pratica-tab-utente',
-  templateUrl: './pratica-tab-utente.component.html',
-  styleUrls: ['./Pratica-tab-utente.component.css'],
+  selector: 'app-arichivio-utente',
+  templateUrl: './archivio-utente.component.html',
+  styleUrls: ['./archivio-utente.component.css'],
 })
-export class PraticaTabUtenteComponent implements OnInit {
+export class ArchivioUtenteComponent implements OnInit {
   pratiche: Pratica[] = []; // Dati delle persones
   forms: FormGroup[] = []; // Array di FormGroup per i form
   isClicked: boolean = false;
@@ -41,7 +42,7 @@ export class PraticaTabUtenteComponent implements OnInit {
   faSave = faSave;
   constructor(
     private formBuilder: FormBuilder,
-    private praticaTabUtenteService: PraticaTabUtenteService,
+    private archivioUtente: ArchivioUtenteService,
     private authService : AuthService,
     private dialog : MatDialog
   ) {}
@@ -53,7 +54,7 @@ export class PraticaTabUtenteComponent implements OnInit {
   }
   caricaPratiche() {
     if (this.currentUser) {
-    this.praticaTabUtenteService.getPraticaUtente(this.currentUser.id).subscribe({
+    this.archivioUtente.getPraticaUtente(this.currentUser.id).subscribe({
       next: (richieste: dataModel[]) => {
         console.log("richieste"+ richieste); 
         
