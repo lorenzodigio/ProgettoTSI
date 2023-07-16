@@ -3,8 +3,6 @@
   <fa-icon [icon]="faPlus"> </fa-icon>
  </button>
 
- <mat-divider></mat-divider>
-
 <table>
   <thead>
     <tr>
@@ -18,7 +16,7 @@
   </thead>
   <tbody>
     <ng-container *ngFor="let pratica of pratiche">
-      <tr (click)="isModificaEnabled[pratica.id] ? null : toggleDettagliPratica(pratica)">
+      <tr (click)="apriDialog(pratica)">
         <td>{{ pratica.id }}</td>
         <td>
           <mat-form-field>
@@ -58,31 +56,6 @@
           <button class="elimina" (click)="eliminapratica(pratica.id)">
             <fa-icon [icon]="faTrashAlt"></fa-icon>
           </button>
-        </td>
-      </tr>
-      <tr *ngIf="isDettagliPraticaVisible(pratica) && !isModificaEnabled[pratica.id]">
-        <td colspan="6">
-          <div class="overlay" [class.visible]="dettagliPraticaVisible" (click)="chiudiDettagliPratica()">
-            <div class="modal">
-              <h2>Informazioni della pratica</h2>
-              <p>ID: {{ pratica.id }}</p>
-              <p>Nome pratica: {{ pratica.nomePratica }}</p>
-              <p>Inizio pratica: {{ pratica.inizioPratica }}</p>
-              <p>Fine pratica: {{ pratica.finePratica }}</p>
-              <!-- ... altre informazioni della pratica ... -->
-              <h2>Utente:</h2>
-              <p>ID Utente: {{ personaSelezionata?.id }}</p>
-              <p>Nome: {{ personaSelezionata?.nome }}</p>
-              <p>Cognome: {{ personaSelezionata?.cognome }}</p>
-              <p>Email: {{ personaSelezionata?.email }}</p>
-              <p>Codice Fiscale: {{ personaSelezionata?.codiceFiscale }}</p>
-
-              <h2>Informazioni della vettura associata</h2>
-              <p>Targa: {{ vetturaSelezionata?.targa }}</p>
-              <p>Modello: {{ vetturaSelezionata?.modello }}</p>
-              <p>Anno della macchina: {{ vetturaSelezionata?.immatricolazione }}</p>
-            </div>
-          </div>
         </td>
       </tr>
     </ng-container>

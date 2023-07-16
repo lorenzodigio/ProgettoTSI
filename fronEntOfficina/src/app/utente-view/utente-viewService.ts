@@ -8,9 +8,6 @@ import { Vettura } from '../vettura/vettura.model';
 })
 export class UtenteViewService {
   private backendUrl = 'http://localhost:8080'; 
-  private insertClickSubject = new Subject<boolean>();
-  inserimentoClick$ = this.insertClickSubject.asObservable();
-
   constructor(private http: HttpClient) {}
 
   getVettureUtente(id:number): Observable<Vettura[]>{

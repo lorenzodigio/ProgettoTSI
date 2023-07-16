@@ -12,6 +12,8 @@ import { Vettura } from '../vettura/vettura.model';
 import { Persona } from '../inserimento Persona/persona.model';
 import { dataModel } from '../pratica-tab/data.model';
 import { AuthService } from '../login/login.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
 
 @Component({
   selector: 'app-pratica-tab-utente',
@@ -40,7 +42,8 @@ export class PraticaTabUtenteComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private praticaTabUtenteService: PraticaTabUtenteService,
-    private authService : AuthService
+    private authService : AuthService,
+    private dialog : MatDialog
   ) {}
 
   ngOnInit() {
@@ -127,4 +130,18 @@ export class PraticaTabUtenteComponent implements OnInit {
   chiudiDettagliPratica() {
     this.dettagliPraticaVisible = false;
   }
+apriDialog(pratica: Pratica) {
+  const dialogRef = this.dialog.open(PopupDialogComponent, {
+    width: '400px',
+    data: {
+      persona: this.personaSelezionata,
+      vettura: this.vetturaSelezionata
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog chiuso');
+  });
+}
+  
 }

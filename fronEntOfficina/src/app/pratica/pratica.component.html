@@ -14,7 +14,7 @@
   <div class = "text">
     <mat-form-field class="textArea">
       <mat-label>Descrizione</mat-label>
-      <textarea name ="descrizione " matInput placeholder="Descizione..."></textarea>
+      <textarea name ="descrizione " matInput placeholder="Descizione..." [(ngModel)]="pratica.descrizione"></textarea>
     </mat-form-field>
     </div>
     <div class = "">
@@ -29,11 +29,11 @@
   <!-- Campo a Tendina per le Persone -->
   <div>
     
-    <mat-select placeholder="Utenti caricati" name ="tenda" [(ngModel)]="persona" required [disabled]="disabilitaMenuVettura || campoPersona" (selectionChange)="selezionaUtente(persona.id)">
+    <mat-select placeholder="Utenti caricati" name ="tenda" [(ngModel)]="persona" required  (selectionChange)="selezionaUtente(persona.id)">
       <mat-option *ngFor="let p of persone" [value]="p">{{ p.codiceFiscale }} : {{ p.nome }} {{ p.cognome }}</mat-option>
     </mat-select>
 
-    <button type="button" (click)="campoPersona = !campoPersona">+</button>
+    <button type="button"(click)="mostraCampoPersona()">+</button>
   </div>
   <div [hidden]="!campoPersona">
     <div *ngIf="!personaSelezionata">
@@ -88,7 +88,7 @@
       <mat-option *ngFor="let v of vettureFiltrate" [value]="v">{{ v.targa }}:{{ v.modello }}</mat-option>
     </mat-select>
   
-    <button type="button" (click)="campoVettura = !campoVettura" [disabled]="personaSelezionata || campoPersona">+</button>
+    <button type="button"  [disabled]="personaSelezionata" (click)="showCampiVettura()">+</button>
   </div>
   <div [hidden]="!campoVettura">
     <div>
