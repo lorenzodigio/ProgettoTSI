@@ -35,6 +35,7 @@ export class HeaderComponent {
   logout(): void {
     this.authService.removeCurrentUser();
     localStorage.removeItem('isAdmin');
+    sessionStorage.removeItem('isAdmin');
     this.router.navigate(['/login']);
     console.log('Sono sloggato');
   }

@@ -14,7 +14,7 @@ import { Vettura } from '../vettura/vettura.model';
 import { Persona } from '../inserimento Persona/persona.model';
 import * as moment from 'moment';
 import { dataModel } from './data.model';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 
 
 @Component({
@@ -31,7 +31,6 @@ export class PraticaTabComponent implements OnInit {
   personaSelezionata: Persona | undefined;
   vetturaSelezionata: Vettura | undefined;
   expanded: boolean[] = [];
-  dettagliPraticaVisible = false;
   pratica: Pratica = new Pratica();
   formattedFinePratica: string = '';
   richieste : dataModel[] = [];
@@ -163,22 +162,7 @@ export class PraticaTabComponent implements OnInit {
     this.praticaSelezionata = pratica;
     // Puoi anche fare altre operazioni o chiamate a servizi qui se necessario
   }
-  toggleDettagliPratica(pratica: Pratica): void {
-    if (this.praticaSelezionata === pratica) {
-      this.praticaSelezionata = undefined;
-    } else {
-      this.praticaSelezionata = pratica;
-      this.dettagliPraticaVisible = !this.dettagliPraticaVisible;
-    }
-  }
-  isDettagliPraticaVisible(pratica: Pratica): boolean {
-    return this.praticaSelezionata && this.praticaSelezionata.id === pratica.id || false;
-  }
-  
-  // Funzione per chiudere i dettagli della pratica quando viene cliccato l'overlay
-  chiudiDettagliPratica() {
-    this.dettagliPraticaVisible = false;
-  }
+
   apriDialog(pratica: Pratica) {
     const dialogRef = this.dialog.open(PopupDialogComponent, {
       height: '400px',

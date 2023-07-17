@@ -1,10 +1,68 @@
-.persona-info{
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-.vettura-info{
+/* Reset CSS per assicurarsi di avere una base coerente */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Stili per il contenitore principale */
+  .dialog {
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  /* Stili per le informazioni sulla persona */
+  .persona-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    }
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .persona-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .persona-info p {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  /* Stili per le informazioni sulla vettura */
+  .vettura-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .vettura-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .vettura-info p {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  /* Stili per le scritte generali */
+  h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  

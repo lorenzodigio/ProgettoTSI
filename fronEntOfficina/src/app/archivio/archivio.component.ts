@@ -4,7 +4,8 @@ import { Pratica } from '../model/pratica.model';
 import { Vettura } from '../vettura/vettura.model';
 import { dataModel } from '../pratica-tab/data.model';
 import { PraticaTabService } from '../pratica-tab/praticaTabService';
-import { Router } from '@angular/router';
+import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-archivio',
@@ -25,7 +26,7 @@ export class ArchivioComponent {
   richieste : dataModel[] = [];
   constructor(
     private praticaTabService: PraticaTabService,
-    private router: Router
+    private dialog : MatDialog
   ) {}
   ngOnInit() {
     this.caricaPratiche();
@@ -53,20 +54,20 @@ export class ArchivioComponent {
       }
     });
   }
-  toggleDettagliPratica(pratica: Pratica): void {
-    if (this.praticaSelezionata === pratica) {
-      this.praticaSelezionata = undefined;
-    } else {
-      this.praticaSelezionata = pratica;
-      this.dettagliPraticaVisible = !this.dettagliPraticaVisible;
-    }
-  }
-  isDettagliPraticaVisible(pratica: Pratica): boolean {
-    return this.praticaSelezionata && this.praticaSelezionata.id === pratica.id || false;
-  }
+  apriDialog(pratica: Pratica) {
+    const dialogRef = this.dialog.open(PopupDialogComponent, {
+      height: '400px',
+      width: '600px',
+      data: {
+        persona: this.personaSelezionata,
+        vettura: this.vetturaSelezionata
+      }
+    });
   
-  // Funzione per chiudere i dettagli della pratica quando viene cliccato l'overlay
-  chiudiDettagliPratica() {
-    this.dettagliPraticaVisible = false;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog chiuso');
+    });
   }
+
 }
+

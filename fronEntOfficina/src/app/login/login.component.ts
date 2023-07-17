@@ -22,18 +22,18 @@ export class LoginComponent {
 
   ngOnInit() {
     // Recupera i valori salvati dall'utente (se presenti) quando il componente viene caricato
-    const rememberMeUsername = localStorage.getItem('rememberMeUsername');
-    const rememberMePassword = localStorage.getItem('rememberMePassword');
-    if (rememberMeUsername && rememberMePassword) {
-      this.rememberMe = true;
-      this.savedUsername = rememberMeUsername;
-      this.savedPassword = rememberMePassword;
-      this.login.codiceFiscale = this.savedUsername;
-      this.login.password = this.savedPassword;
-    }
+    //const rememberMeUsername = localStorage.getItem('rememberMeUsername');
+    //const rememberMePassword = localStorage.getItem('rememberMePassword');
+    //if (rememberMeUsername && rememberMePassword) {
+      //this.rememberMe = true;
+      //this.savedUsername = rememberMeUsername;
+      //this.savedPassword = rememberMePassword;
+      //this.login.codiceFiscale = this.savedUsername;
+      //this.login.password = this.savedPassword;
+    //}
   }
 
-  submitLogin(): void {
+ submitLogin(): void {
     if (this.rememberMe) {
       // Memorizza l'username e la password
       localStorage.setItem('rememberMeUsername', this.login.codiceFiscale);
