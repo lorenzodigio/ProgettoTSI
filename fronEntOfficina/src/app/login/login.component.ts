@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './login.service';
 import { Login } from './login.model';
 import { Persona } from '../inserimento Persona/persona.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent {
   savedPassword = '';
   hide : boolean = true;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,
+    private toastr: ToastrService) {}
 
   ngOnInit() {
     // Recupera i valori salvati dall'utente (se presenti) quando il componente viene caricato
@@ -50,12 +52,12 @@ export class LoginComponent {
           this.authService.setCurrentUser(authenticatedUser);
           localStorage.setItem('isAdmin', 'true');
           sessionStorage.setItem('isAdmin', 'true');
-          alert('Login amministratore');
+          this.toastr.success("Sei Un Amministratore.")
           this.router.navigate(['admin/home']);
           this.isAdmin = true;
         } else {
           this.authService.setCurrentUser(authenticatedUser);
-          alert('Login non amministratore');
+          this.toastr.success("Sei un Utente.")
           localStorage.setItem('isAdmin', 'false');
           sessionStorage.setItem('isAdmin', 'false');
           this.router.navigate(['/home']);
@@ -66,12 +68,12 @@ export class LoginComponent {
         if (error && error.error && error.error.message) {
           errorMessage = error.error.message;
         }
-        alert(errorMessage);
+        this.toastr.error(errorMessage);
         this.router.navigate(['/login']);
       },
     });
   }
 }
-export class FormFieldPrefixSuffixExample {
+export class FormFieldPrefixSuffix {
   hide = false;
 }

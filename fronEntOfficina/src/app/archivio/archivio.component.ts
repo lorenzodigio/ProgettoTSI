@@ -15,12 +15,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class ArchivioComponent {
   pratiche: Pratica[] = []; // Dati delle persone
   isModificaEnabled: boolean[] = [];
-  isClicked: boolean = false;
   praticaSelezionata: Pratica | undefined;
   personaSelezionata: Persona | undefined;
   vetturaSelezionata: Vettura | undefined;
   expanded: boolean[] = [];
-  dettagliPraticaVisible = false;
   pratica: Pratica = new Pratica();
   formattedFinePratica: string = '';
   richieste : dataModel[] = [];
@@ -30,10 +28,6 @@ export class ArchivioComponent {
   ) {}
   ngOnInit() {
     this.caricaPratiche();
-  }
-  onInsertClick(): void {
-    this.isClicked = true;
-    this.praticaTabService.emitInsertClick(this.isClicked);
   }
   caricaPratiche() {
     this.praticaTabService.getArchivio().subscribe({

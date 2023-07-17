@@ -41,6 +41,11 @@ import { PraticaTabUtenteComponent } from './pratica-tab-utente/pratica-tab-uten
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { PopupDialogComponent } from './popup-dialog/popup-dialog.component';
 import { ArchivioUtenteComponent } from './archivio-utente/archivio-utente.component';
+import { ToastrModule } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +64,7 @@ import { ArchivioUtenteComponent } from './archivio-utente/archivio-utente.compo
     PraticaTabUtenteComponent,
     AdminViewComponent,
     PopupDialogComponent,
-    ArchivioUtenteComponent
+    ArchivioUtenteComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,9 +85,14 @@ import { ArchivioUtenteComponent } from './archivio-utente/archivio-utente.compo
     MatDividerModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    ToastrModule.forRoot({
+      positionClass: "toastr-center",
+      timeOut: 3000,
+      preventDuplicates: true,
+    }),
   ],
-  providers: [AuthService, BodyClickService,RecuperoService,AuthGuard],
+  providers: [AuthService, BodyClickService,RecuperoService,AuthGuard,provideAnimations(),provideToastr()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

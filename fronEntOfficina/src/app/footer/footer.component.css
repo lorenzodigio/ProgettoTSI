@@ -1,7 +1,72 @@
-footer {
-    background-color: #000;
-    color: #fff;
-    padding: 20px;
+p{
     text-align: center;
-    
 }
+/* Reset margin and padding for the footer */
+.footer {
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    color: #fff;
+    max-height: 200px;
+  }
+  
+  /* Center the content within the footer */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Style for footer content columns */
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Style for individual footer column */
+  .footer-column {
+    flex: 1 1 300px;
+    margin-bottom: 20px;
+  }
+  
+  /* Footer heading styles */
+  h3 {
+    color: #fff;
+  }
+  
+  /* Footer links styles */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul li {
+    margin-bottom: 5px;
+  }
+  
+  ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  /* Social icons styles */
+  .social-icons {
+    display: flex;
+  }
+  
+  .icon-link {
+    display: inline-block;
+    margin-right: 10px;
+    color: #fff;
+    font-size: 24px;
+  }
+  
+  /* Additional styles for the icons (Font Awesome) */
+  .icon-link i {
+    transition: color 0.2s;
+  }
+  
+  .icon-link i:hover {
+    color: #ffc107
+  }

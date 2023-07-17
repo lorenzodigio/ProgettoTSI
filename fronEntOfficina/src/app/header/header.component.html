@@ -2,7 +2,7 @@
   <nav>
     <div class="logo">
       <a [routerLink]="isAdmin ? '/admin/home' : '/home'">
-        <img src="/assets/logo.png" alt="logo">
+        <img src="/assets/logo.png" alt="logo" />
       </a>
     </div>
     <ul class="navigation">
@@ -16,10 +16,10 @@
         <a [routerLink]="isAdmin ? '/admin/home/archivio' : '/home/archivio'">Archivio</a>
       </li>
     </ul>
-    <div class="user-info">
-      <span class="username">{{ username }}</span>
-      <span class="username">{{ surname }}</span>
-      <button class="logout-button" (click)="logout()">Logout</button>
-    </div>
   </nav>
+  <div class="user-info">
+    <label class="info">{{ username }}</label>
+    <label class="info">{{ surname }}</label>
+  </div>
+  <button mat-button color="warn" class="logout-button" (click)="logout()">Logout</button>
 </header>
