@@ -18,7 +18,7 @@ export class AuthService {
 
   getCurrentUser(): Persona {
     const persona = sessionStorage.getItem(this.currentUserKey);
-    return persona ? JSON.parse(persona):Persona;
+    return persona ? JSON.parse(persona):null;
   }
   
   setCurrentUser(persona: Persona) {

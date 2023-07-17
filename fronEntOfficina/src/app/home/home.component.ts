@@ -13,7 +13,6 @@ export class HomeComponent  {
 
   ngOnInit(): void {
     this.isAdmin = localStorage.getItem('isAdmin') === 'true';
-    console.log(this.isAdmin)
   }
   
 
