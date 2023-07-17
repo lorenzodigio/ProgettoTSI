@@ -1,6 +1,8 @@
 
 
-<div class="vettura" *ngFor="let pratica of pratiche">
-
-  </div>
+<div class="pratica" *ngFor="let pratica of pratiche">
+   <p>ID PRATICA: {{ pratica?.id }}</p>
+   <p>NOME PRATICA: {{ pratica?.nomePratica }}</p>
+   <p>INIZIO PRATICA: {{ pratica?.inizioPratica }}</p>
+</div>
   

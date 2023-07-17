@@ -5,21 +5,23 @@
 
   <!-- Campo Inizio pratica -->
   <div>
-    <mat-form-field class="">
-      <mat-label for="nome"> Nome della Pratica: </mat-label>
+    <mat-form-field class="mat">
+      <mat-label for="nome"  class = "matLabel"> Nome della Pratica: </mat-label>
       <input matInput  name="nomePratica" [(ngModel)]="pratica.nomePratica" required>
+      <mat-icon matSuffix>home</mat-icon>
     </mat-form-field>
   </div>
 
   <div class = "text">
-    <mat-form-field class="textArea">
-      <mat-label>Descrizione</mat-label>
+    <mat-form-field class="mat">
+      <mat-label class = "matLabel">Descrizione</mat-label>
+      <mat-icon matSuffix>description</mat-icon>
       <textarea name ="descrizione " matInput placeholder="Descizione..." [(ngModel)]="pratica.descrizione"></textarea>
     </mat-form-field>
     </div>
     <div class = "">
-  <mat-form-field>
-    <mat-label for="inizioPratica">Inizio della Pratica:</mat-label>
+  <mat-form-field class = "mat">
+    <mat-label for="inizioPratica" >Inizio della Pratica:</mat-label>
     <input matInput [matDatepicker]="picker" placeholder="seleziona una data" name = "inizioPratica" [(ngModel)]="pratica.inizioPratica" required disabled >
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
@@ -38,34 +40,23 @@
   <div [hidden]="!campoPersona">
     <div *ngIf="!personaSelezionata">
       <div>
-        <mat-form-field class="">
+        <mat-form-field class="mat">
           <mat-label for="nome"> Nome: </mat-label>
+          <mat-icon matSuffix>person</mat-icon>
           <input matInput  name="nome" [(ngModel)]="persona.nome" required>
         </mat-form-field>
       </div>
       <div>
-        <mat-form-field class="">
+        <mat-form-field class="mat">
           <mat-label for="nome"> Cognome: </mat-label>
+          <mat-icon matSuffix>person</mat-icon>
           <input matInput  name="cognome" [(ngModel)]="persona.cognome" required>
         </mat-form-field>
       </div>
       <div>
-        <mat-form-field class="">
-            <mat-label>Email</mat-label>
-            <input type="email" name = "email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" [(ngModel)]="persona.email"
-                   placeholder="Ex. pat@example.com">
-            <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-              Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')">
-              Email is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field class="">
+        <mat-form-field class="mat">
           <mat-label>Codice Fiscale</mat-label>
+          <mat-icon matSuffix>person</mat-icon>
           <input type="text" name="codiceFiscale" matInput [formControl]="codiceFiscaleControl" [errorStateMatcher]="matcherF" [(ngModel)]="persona.codiceFiscale"
                  placeholder="DGVLNZ...">
           <mat-hint>Errors appear instantly!</mat-hint>
@@ -76,6 +67,21 @@
             Codice Fiscale is <strong>required</strong>
           </mat-error>
         </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="mat">
+            <mat-label>Email</mat-label>
+            <mat-icon matSuffix>email</mat-icon>
+            <input type="email" name = "email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" [(ngModel)]="persona.email"
+                   placeholder="Ex. pat@example.com">
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
       </div>
     </div>
   </div>
@@ -92,25 +98,28 @@
   </div>
   <div [hidden]="!campoVettura">
     <div>
-      <mat-form-field class="">
+      <mat-form-field class="mat">
         <mat-label for="targa"> Targa: </mat-label>
+        <mat-icon matSuffix>electric_car</mat-icon>
         <input matInput  name="targa" [(ngModel)]="vettura.targa" required>
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field class="">
+      <mat-form-field class="mat">
+        <mat-icon matSuffix>electric_car</mat-icon>
         <mat-label for="modello"> Modello: </mat-label>
         <input matInput  name="modello" [(ngModel)]="vettura.modello" required>
       </mat-form-field>
     </div>  
     <div>
-      <mat-form-field class="">
+      <mat-form-field class="mat">
+        <mat-icon matSuffix>electric_car</mat-icon>
         <mat-label for="kilometraggio"> kilometraggio: </mat-label>
         <input matInput  name="kilometraggio" placeholder="Aggiungi kilometraggio" [(ngModel)]="vettura.kilometraggio" required>
       </mat-form-field>
     </div>
     <div class = "">
-      <mat-form-field>
+      <mat-form-field class = "mat">
         <mat-label for="immatricolazione">Immatricolazione:</mat-label>
         <input matInput [matDatepicker]="Immatricolazionepicker" placeholder="seleziona una data" name = "immatricolazione" [(ngModel)]="vettura.immatricolazione"  required>
         <mat-datepicker-toggle matIconSuffix [for]="Immatricolazionepicker"></mat-datepicker-toggle>
@@ -118,7 +127,7 @@
       </mat-form-field>
       </div>
       <div class = "">
-        <mat-form-field>
+        <mat-form-field class = "mat">
           <mat-label for="tagliando">Tagliando:</mat-label>
           <input matInput [matDatepicker]="tagliandopicker" placeholder="seleziona una data" name = "tagliando" [(ngModel)]="vettura.tagliando"  required>
           <mat-datepicker-toggle matIconSuffix [for]="tagliandopicker"></mat-datepicker-toggle>
