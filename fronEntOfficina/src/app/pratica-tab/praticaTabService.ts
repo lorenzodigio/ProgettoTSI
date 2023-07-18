@@ -9,17 +9,13 @@ import { dataModel } from './data.model';
 })
 export class PraticaTabService {
   private backendUrl = 'http://localhost:8080/admin/home'; // Aggiorna con l'URL corretto del tuo backend
-  private insertClickSubject = new Subject<boolean>();
-  inserimentoClick$ = this.insertClickSubject.asObservable();
+
 
   constructor(private http: HttpClient) {}
 
   getPratica(): Observable<dataModel[]> {
     const url = `${this.backendUrl}/pratiche`; // Utilizza il backtick (grave accent) per interpolare la variabile
     return this.http.get<dataModel[]>(url); // Utilizza la variabile url invece di inserire il testo 'url'
-  }
-  emitInsertClick(isInserimentoClicked: boolean): void {
-    this.insertClickSubject.next(isInserimentoClicked);
   }
   updatePratica(pratica: Pratica): Observable<Pratica> {
     const url = `${this.backendUrl}/modificaPratica`;

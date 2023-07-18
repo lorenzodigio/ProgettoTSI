@@ -15,6 +15,7 @@ import { Persona } from '../inserimento Persona/persona.model';
 import * as moment from 'moment';
 import { dataModel } from './data.model';
 import { MatDialog} from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class PraticaTabComponent implements OnInit {
     private formBuilder: FormBuilder,
     private praticaTabService: PraticaTabService,
     private router: Router,
-    private dialog : MatDialog
+    private dialog : MatDialog,
+    private toast : ToastrService
   ) {}
 
   ngOnInit() {
@@ -52,7 +54,6 @@ export class PraticaTabComponent implements OnInit {
   }
   onInsertClick(): void {
     this.isClicked = true;
-    this.praticaTabService.emitInsertClick(this.isClicked);
   }
   caricaPratiche() {
     this.praticaTabService.getPratica().subscribe({
@@ -118,13 +119,12 @@ export class PraticaTabComponent implements OnInit {
     
       this.praticaTabService.updatePratica(pratica).subscribe({
         next: () => {
-          alert("La pratica è stata aggiornata correttamente");
-          console.log('pratica aggiornata:', pratica);
+          this.toast.success("La pratica è stata aggiornata correttamente");
           this.caricaPratiche();
           this.router.navigate(['admin/home/pratiche']);
         },
         error: () => {
-          alert("Errore: la pratica non è stata aggiornata");
+          this.toast.error("Errore: la pratica non è stata aggiornata");
           console.error("Errore durante l'aggiornamento:");
           this.caricaPratiche();
           this.router.navigate(['admin/home/pratiche']);
@@ -146,35 +146,35 @@ export class PraticaTabComponent implements OnInit {
     if (pratica) {
       this.praticaTabService.deletePratica(pratica).subscribe({
         next: (updatedpratica: Pratica) => {
-          alert('La pratica è stata eliminato correttamente');
-          console.log('pratica eliminata:', updatedpratica);
+          this.toast.success('La pratica è stata eliminato correttamente');
           this.caricaPratiche();
           this.router.navigate(['admin/home/pratiche']);
         },
         error: (error: any) => {
-          alert('Errore: impossibile eliminare la pratica');
-          console.error("Errore durante l'eliminazione:", error);
+          this.toast.error('Errore: impossibile eliminare la pratica');
+
         },
       });
     }
   }
   selezionaPratica(pratica: Pratica): void {
     this.praticaSelezionata = pratica;
-    // Puoi anche fare altre operazioni o chiamate a servizi qui se necessario
   }
 
   apriDialog(pratica: Pratica) {
-    const dialogRef = this.dialog.open(PopupDialogComponent, {
-      height: '400px',
-      width: '600px',
-      data: {
-        persona: this.personaSelezionata,
-        vettura: this.vetturaSelezionata
-      }
-    });
+    if (!this.isModificaEnabled[pratica.id]) {
+      const dialogRef = this.dialog.open(PopupDialogComponent, {
+        height: '400px',
+        width: '600px',
+        data: {
+          persona: this.personaSelezionata,
+          vettura: this.vetturaSelezionata
+        }
+      });
   
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog chiuso');
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('Dialog chiuso');
+      });
+    }
   }
 }

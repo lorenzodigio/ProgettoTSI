@@ -4,9 +4,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Fugaz One', cursive;
 }
 body{
-    font-family: 'Fugaz One', cursive;
+  font-family: 'Fugaz One', cursive;
 }
 button{
   font-family: 'Fugaz One', cursive;

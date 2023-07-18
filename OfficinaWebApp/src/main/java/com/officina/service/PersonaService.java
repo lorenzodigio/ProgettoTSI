@@ -124,6 +124,12 @@ public class PersonaService {
 				personaDB.setCodiceFiscale(p.getCodiceFiscale());
 				personaDB.setRuolo(p.getRuolo());
 				personaR.save(personaDB);
+					String subject = "Utente modificato";
+					String body = "Gentile " + personaDB.getNome() +  ",\n La modifica è stata effettuata con successo.\n"
+							+ "Di seguito troverai le tue credenziali di accesso:\n" + "Username: " + personaDB.getCodiceFiscale()
+							+ "\n" + "Password: " + personaDB.getPassword();
+
+					emailsender.sendEmail(personaDB.getEmail(), subject, body);
 				return true;
 			} else {
 				// Codice fiscale duplicato nel database, gestisci l'errore di conseguenza
@@ -141,6 +147,13 @@ public class PersonaService {
 		if (!personaR.existsById(id)) {
 			return false;
 		}
+		
+		Optional<Persona> personaTrovata = personaR.findById(id);
+		Persona persona = personaTrovata.get();
+		String subject = "Utente modificato";
+		String body = "Gentile " + persona.getNome() + ",\n Il suo utente è stato eliminato con successo.\n" + 
+		"non potrà più accedere al sito";
+		emailsender.sendEmail(persona.getEmail(), subject, body);
 		personaR.deleteById(id);
 		return true;
 	}

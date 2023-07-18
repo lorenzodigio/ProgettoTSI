@@ -4,6 +4,7 @@ import { UtenteService } from './utenti.service';
 import { Persona } from '../inserimento Persona/persona.model';
 import { faPlus, faEdit, faTrashAlt, faSave } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -27,7 +28,8 @@ export class UtentiComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private utentiService: UtenteService,
-    private router: Router) {}
+    private router: Router,
+    private toast: ToastrService) {}
 
   ngOnInit() {
     this.caricaUtenti();
@@ -80,14 +82,12 @@ abilitaModifica(personaId: number): void {
       };
 
       this.utentiService.updateUtenti(personaDaModificare).subscribe({
-        next: updatedPersona => {
-          alert("L'utente è stato aggiornato correttamente");
-          console.log('Persona aggiornata:', updatedPersona);
+        next: () => {
+          this.toast.success("L'utente è stato aggiornato correttamente");
           this.router.navigate(['admin/home/utenti']);
         },
-        error: error => {
-          alert("Errore: l'utente non è stato aggiornato");
-          console.error('Errore durante l\'aggiornamento:', error);
+        error: () => {
+          this.toast.error("Errore: l'utente non è stato aggiornato");
           this.router.navigate(['admin/home/utenti']);
         }
       });
@@ -101,17 +101,14 @@ abilitaModifica(personaId: number): void {
   
     if (persona) {
       this.utentiService.deleteUtente(persona).subscribe({
-        next: (updatedPersona: Persona) => {
-          alert("L'utente è stato eliminato correttamente");
-          console.log('Persona eliminata:', updatedPersona);
+        next: () => {
+          this.toast.success("L'utente è stato eliminato correttamente");
           this.caricaUtenti();
           this.router.navigate(['admin/home/utenti']);
           
         },
-        error: (error: any) => {
-          alert("Errore: impossibile eliminare l'utente");
-          console.error('Errore durante l\'eliminazione:', error);
-         
+        error: () => {
+          this.toast.error("Errore: impossibile eliminare l'utente");
         }
       });
     }

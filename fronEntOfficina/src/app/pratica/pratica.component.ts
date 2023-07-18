@@ -16,6 +16,7 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pratica',
@@ -46,6 +47,7 @@ export class PraticaComponent {
     private router: Router,
     private utentiService: UtenteService,
     private vetturaService: VetturaService,
+    private toast : ToastrService
     
   ) {
     this.codiceFiscaleControl.setValidators(this.codiceFiscaleValidator);
@@ -97,12 +99,12 @@ export class PraticaComponent {
     this.disabilitaMenuVettura = true;
     this.praticaService.inserisciPratica(data).subscribe({
       next: () => {
-        alert('Pratica Inserita Correttamente');
+        this.toast.success('Pratica Inserita Correttamente');
         this.router.navigate(['/admin/home/pratiche']);
       },
       error: (error) => {
         console.error("Errore durante l'inserimento della pratica:", error);
-        alert('Errore inserimento pratica');
+        this.toast.error('Errore inserimento pratica');
         this.router.navigate(['/admin/home/pratiche']);
       },
     });
