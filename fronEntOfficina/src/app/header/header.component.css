@@ -1,58 +1,51 @@
 header {
   background-color: #000;
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+ height: 120px;
+ font-family: 'Fugaz One', cursive;
 }
 
-nav {
+.container {
+  width:1170px;
+  height: 100%;
+  margin: 0 auto;
   display: flex;
+  justify-content: space-between; 
   align-items: center;
 }
 
 .logo {
-  color: #fff;
-  font-size: 20px;
-  text-decoration: none;
+  height:100%;
 }
 
 .navigation {
   display: flex;
   align-items: center;
- width:200%;
+  /* width: 200%;  Adjust this width as needed */
 }
 
 .navigation li {
-  font-family: 'Fugaz One', cursive;
   list-style: none;
-  margin-left: 20px;
+  /*ogni rem sono 16 pixel*/
+  margin-right: 1rem;
 }
 
 .navigation a {
   color: #fff;
   text-decoration: none;
 }
-
-.user-info {
+.info{
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-left:150px;
+  justify-content: center;
+  align-items: center;
 }
-
-.logout-button {
-  border: none;
+.user-info {
   color: #fff;
-  cursor: pointer;
-  font-family: 'Fugaz One', cursive;
-  position: absolute;
-  top: 0;
-  right: 20px;
+  margin-right: 1rem;
+
 }
 
-.info {
-  font-weight: bold;
-  font-size: 18px;
+.logout-btn {
+  padding:0.5rem 1rem;
+
 }
+

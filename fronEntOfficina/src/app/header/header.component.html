@@ -1,25 +1,34 @@
 <header>
-  <nav>
-    <div class="logo">
-      <a [routerLink]="isAdmin ? '/admin/home' : '/home'">
-        <img src="/assets/logo.png" alt="logo" />
-      </a>
+  <div class="container">
+    <a [routerLink]="isAdmin ? '/admin/home' : '/home'">
+      <img src="/assets/logo.png" alt="logo" />
+    </a>
+    <nav>
+      <ul class="navigation">
+        <li *ngIf="isAdmin">
+          <a routerLink="/admin/home/utenti">Utenti</a>
+        </li>
+        <li>
+          <a [routerLink]="isAdmin ? '/admin/home/pratiche' : '/home/pratiche'"
+            >Pratiche</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="isAdmin ? '/admin/home/archivio' : '/home/archivio'"
+            >Archivio</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <div class = "info">
+      <div class="user-info">
+        <label>{{ username }} </label>
+        <label>{{ surname }}</label>
+      </div>
+
+      <button class = "logout-btn" (click)="logout()">
+        Logout
+      </button>
     </div>
-    <ul class="navigation">
-      <li *ngIf="isAdmin">
-        <a routerLink="/admin/home/utenti">Utenti</a>
-      </li>
-      <li>
-        <a [routerLink]="isAdmin ? '/admin/home/pratiche' : '/home/pratiche'">Pratiche</a>
-      </li>
-      <li>
-        <a [routerLink]="isAdmin ? '/admin/home/archivio' : '/home/archivio'">Archivio</a>
-      </li>
-    </ul>
-  </nav>
-  <div class="user-info">
-    <label class="info">{{ username }}</label>
-    <label class="info">{{ surname }}</label>
   </div>
-  <button mat-button color="warn" class="logout-button" (click)="logout()">Logout</button>
 </header>
