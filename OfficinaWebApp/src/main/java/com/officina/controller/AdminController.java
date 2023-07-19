@@ -117,45 +117,49 @@ public class AdminController {
 
 	@PostMapping("/aggiungiPratica")
 	public ResponseEntity<Pratica> addPratica(@RequestBody DataModel richiesta) {
-	    Pratica pratica = richiesta.getPratica();
-	    Vettura v = richiesta.getVettura();
-	    Persona p = richiesta.getPersona();
-	    Long idPersona = p.getId();
-	    Boolean personaTrovata = praticaS.findPratica(idPersona);
-	    if (personaTrovata) {
-	        return ResponseEntity.internalServerError().build();
-	    }
+		Pratica pratica = richiesta.getPratica();
+		Vettura v = richiesta.getVettura();
+		Persona p = richiesta.getPersona();
+		Long idPersona = p.getId();
+		Boolean praticaTrovata = praticaS.findPratica(idPersona);
+		if (praticaTrovata) {
+			// Trovata la pratica associata alla persona, ora controlla la vettura
+			Pratica praticaEsistente = praticaS.getPraticaByPersona(idPersona);
+			Optional<Vettura> vetturaEsistente = vetturaS.findVetturaId(praticaEsistente.getFkIdVettura());
+			if (vetturaEsistente.isPresent()) {
+				Vettura vetturaE = vetturaEsistente.get();
+				if (vetturaEsistente != null && vetturaE.getTarga().equals(v.getTarga())) {
+					return ResponseEntity.internalServerError().build();
+				}
+			}
+		}
+		Persona personaEsistente = personaS.getPersonaByCodiceFiscale(p.getCodiceFiscale());
+		if (personaEsistente != null) {
+			p.setId(personaEsistente.getId());
+		} else {
+			personaEsistente = personaS.inserisciPersona(p);
+		}
 
-	    Persona personaEsistente = personaS.getPersonaByCodiceFiscale(p.getCodiceFiscale());
-	    if (personaEsistente != null) {
-	        p.setId(personaEsistente.getId());
-	    } else {
-	        personaEsistente = personaS.inserisciPersona(p);
-	    }
+		v.setFk_id_persona(personaEsistente.getId());
 
-	    v.setFk_id_persona(personaEsistente.getId());
+		Vettura vetturaEsistente = vetturaS.findVettura(v.getTarga());
+		if (vetturaEsistente != null) {
 
-	    Vettura vetturaEsistente = vetturaS.findVettura(v.getTarga());
-	    if (vetturaEsistente != null) {
-	        // Controlla se la vettura è già associata a una persona diversa
-	        if (vetturaEsistente.getFkIdPersona() != null && !vetturaEsistente.getFkIdPersona().equals(personaEsistente.getId())) {
-	            return ResponseEntity.unprocessableEntity().build(); // Potresti usare un altro status code, se appropriato
-	        }
-	        pratica.setFkIdVettura(vetturaEsistente.getId());
-	    } else {
-	        vetturaEsistente = vetturaS.aggiungiVettura(v);
-	        pratica.setFkIdVettura(vetturaEsistente.getId());
-	    }
+			if (vetturaEsistente.getFkIdPersona() != null
+					&& !vetturaEsistente.getFkIdPersona().equals(personaEsistente.getId())) {
+				return ResponseEntity.unprocessableEntity().build();
+			}
+			pratica.setFkIdVettura(vetturaEsistente.getId());
+		} else {
+			vetturaEsistente = vetturaS.aggiungiVettura(v);
+			pratica.setFkIdVettura(vetturaEsistente.getId());
+		}
 
-	    pratica.setFkIdPersona(personaEsistente.getId());
-	    praticaS.aggiungiPratica(pratica);
-	    return ResponseEntity.ok().build();
+		pratica.setFkIdPersona(personaEsistente.getId());
+		praticaS.aggiungiPratica(pratica);
+		return ResponseEntity.ok().build();
 	}
 
-	
-	
-	
-	
 	@PostMapping("/modificaPratica")
 	public ResponseEntity<Pratica> modificaPratica(@RequestBody Pratica pratica) {
 		if (!praticaS.modificaPratica(pratica)) {

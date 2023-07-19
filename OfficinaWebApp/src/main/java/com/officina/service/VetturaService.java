@@ -51,6 +51,10 @@ public class VetturaService {
 			return vettura;
 		}
 		return null;
-		
+
+	}
+	public Optional<Vettura> findVetturaId(Long id) {
+		return vetturaR.findById(id);
 	}
 }
+

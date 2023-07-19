@@ -1,4 +1,5 @@
 package com.officina.service;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -24,14 +25,15 @@ public class PraticaService {
 	public void aggiungiPratica(Pratica pratica) {
 		praticaR.save(pratica);
 	}
-	
+
 	public boolean findPratica(Long id) {
 		Pratica pratica = praticaR.findPraticaByPersona(id);
-		if( pratica != null) {
+		if (pratica != null) {
 			return true;
 		}
 		return false;
 	}
+
 	public boolean eliminaPratica(Long id) {
 		if (!praticaR.existsById(id)) {
 			return false;
@@ -65,17 +67,25 @@ public class PraticaService {
 		}
 
 	}
-	/*
-	 * restituisco le pratiche concluse tramite una query nel repo corrispondente
-	 */
+
+
 	public List<Pratica> getArchivio() {
 		return praticaR.findPraticaByStato();
 	}
-	
-	public List<Pratica> getPraticheUtente(Long id){
+
+	public List<Pratica> getPraticheUtente(Long id) {
 		return praticaR.findPraticaInLavorazioneByUser(id);
 	}
-	public List<Pratica> getArchivioUtente(Long id){
+
+	public List<Pratica> getArchivioUtente(Long id) {
 		return praticaR.findPraticaChiusaByUser(id);
 	}
+	
+
+	public Pratica getPraticaByPersona(Long idPersona) {
+		
+		Pratica pratica = praticaR.findPraticaInLavorazione(idPersona);
+		return pratica;
+	}
+
 }

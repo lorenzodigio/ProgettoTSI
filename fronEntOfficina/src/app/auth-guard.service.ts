@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     if (this.authService.isLoggedIn()) {
       const currentUser = this.authService.getCurrentUser();
-      console.log(currentUser)
       if (currentUser) {
         return true;
       }
