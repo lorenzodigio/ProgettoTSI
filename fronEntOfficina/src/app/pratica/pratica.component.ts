@@ -13,7 +13,7 @@ import {
   FormGroupDirective,
   NgForm,
   ValidationErrors,
-  AbstractControl
+  AbstractControl,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Toast, ToastrService } from 'ngx-toastr';
@@ -41,24 +41,20 @@ export class PraticaComponent {
   codiceFiscaleControl = new FormControl('', Validators.required);
   matcherF = new MyErrorStateMatcher();
 
-
   constructor(
     private praticaService: PraticaService,
     private router: Router,
     private utentiService: UtenteService,
     private vetturaService: VetturaService,
-    private toast : ToastrService
-    
+    private toast: ToastrService
   ) {
     this.codiceFiscaleControl.setValidators(this.codiceFiscaleValidator);
   }
-  
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
-  
-
 
   ngOnInit(): void {
     this.caricaUtenti();
@@ -72,23 +68,27 @@ export class PraticaComponent {
 
   selezionaUtente(id: number) {
     console.log('selezionaUtente called with id:', id);
-    this.vetturaService.getVettureByPersona(id).subscribe((vetture: Vettura[]) => {
-      this.vettureFiltrate = vetture;
-      console.log(this.vettureFiltrate)
-      this.personaSelezionata = true;
-    });
+    this.vetturaService
+      .getVettureByPersona(id)
+      .subscribe((vetture: Vettura[]) => {
+        this.vettureFiltrate = vetture;
+        console.log(this.vettureFiltrate);
+        this.personaSelezionata = true;
+      });
   }
-
-
 
   aggiungiDati() {
     if (this.vettura.tagliando && this.vettura.immatricolazione) {
       const tagliandoDate = new Date(this.vettura.tagliando);
       const immatricolazioneDate = new Date(this.vettura.immatricolazione);
-  
+
       if (tagliandoDate < immatricolazioneDate) {
-        alert('La data del tagliando non può essere precedente alla data di immatricolazione.');
-        return; // Esce dalla funzione per impedire l'inserimento
+        this.toast.error('La data del tagliando non può essere precedente alla data di immatricolazione.');
+        return; 
+      }
+      if(this.vettura.kilometraggio <= 0){
+        this.toast.error('Errore Kilometraggio.');
+        return; 
       }
     }
     const data = {
@@ -103,9 +103,16 @@ export class PraticaComponent {
         this.router.navigate(['/admin/home/pratiche']);
       },
       error: (error) => {
-        console.error("Errore durante l'inserimento della pratica:", error);
-        this.toast.error('Errore inserimento pratica');
-        this.router.navigate(['/admin/home/pratiche']);
+        switch (error.status) {
+          case 400:
+            this.toast.error('Errore: Persona già esistente.');
+            this.router.navigate(['/admin/home/pratiche']);
+            break;
+          case 403:
+            this.toast.error('Errore: Vettura già esistente.');
+            this.router.navigate(['/admin/home/pratiche']);
+            break;
+        }
       },
     });
   }
@@ -118,30 +125,28 @@ export class PraticaComponent {
     this.campoVettura = false;
   }
   showCampiVettura() {
-      this.campoVettura = !this.campoVettura;
-      this.campoPersona = false;
-    }
-  
-  
+    this.campoVettura = !this.campoVettura;
+    this.campoPersona = false;
+  }
+
   codiceFiscaleValidator(control: AbstractControl): ValidationErrors | null {
     if (control instanceof FormControl) {
       const cf = control.value.toUpperCase();
-  
+
       // Verifica la lunghezza del codice fiscale
       if (cf.length !== 16) {
         return { codiceFiscale: true };
       }
-  
+
       // Verifica la validità dei caratteri
       const validCharacters = /^[A-Z0-9]+$/;
       if (!validCharacters.test(cf)) {
         return { codiceFiscale: true };
       }
     }
-    
+
     return null; // Il Codice Fiscale è valido
   }
-  
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(

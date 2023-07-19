@@ -5,6 +5,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.officina.entity.Persona;
+import com.officina.exception.UserExistException;
 import com.officina.repository.PersonaRepository;
 
 @Service
@@ -43,7 +44,7 @@ public class PersonaService {
 	public Persona inserisciPersona(Persona persona) {
 		Persona existingPersona = personaR.findByCodiceFiscale(persona.getCodiceFiscale());
 		if (existingPersona != null) {
-			return null; // La persona esiste già nel database
+			 throw new UserExistException();
 		}
 
 		persona.setPassword(GeneraPassword());

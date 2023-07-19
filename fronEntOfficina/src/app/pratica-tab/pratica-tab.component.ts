@@ -27,7 +27,6 @@ export class PraticaTabComponent implements OnInit {
   pratiche: Pratica[] = []; // Dati delle persone
   isModificaEnabled: boolean[] = [];
   forms: FormGroup[] = []; // Array di FormGroup per i form
-  isClicked: boolean = false;
   praticaSelezionata: Pratica | undefined;
   personaSelezionata: Persona | undefined;
   vetturaSelezionata: Vettura | undefined;
@@ -52,9 +51,7 @@ export class PraticaTabComponent implements OnInit {
   ngOnInit() {
     this.caricaPratiche();
   }
-  onInsertClick(): void {
-    this.isClicked = true;
-  }
+
   caricaPratiche() {
     this.praticaTabService.getPratica().subscribe({
       next: (richieste: dataModel[]) => {
@@ -139,22 +136,21 @@ export class PraticaTabComponent implements OnInit {
   
 
   eliminapratica(praticaId: number): void {
-    const pratica: Pratica | undefined = this.pratiche.find(
-      (p) => p.id === praticaId
-    );
-
-    if (pratica) {
-      this.praticaTabService.deletePratica(pratica).subscribe({
-        next: (updatedpratica: Pratica) => {
-          this.toast.success('La pratica è stata eliminato correttamente');
-          this.caricaPratiche();
-          this.router.navigate(['admin/home/pratiche']);
-        },
-        error: (error: any) => {
-          this.toast.error('Errore: impossibile eliminare la pratica');
-
-        },
-      });
+    if (!this.isModificaEnabled[praticaId]) {
+      const pratica: Pratica | undefined = this.pratiche.find(p => p.id === praticaId);
+  
+      if (pratica) {
+        this.praticaTabService.deletePratica(pratica).subscribe({
+          next: () => {
+            this.toast.success('La pratica è stata eliminato correttamente');
+            this.caricaPratiche();
+            this.router.navigate(['admin/home/pratiche']);
+          },
+          error: () => {
+            this.toast.error('Errore: impossibile eliminare la pratica');
+          },
+        });
+      }
     }
   }
   selezionaPratica(pratica: Pratica): void {

@@ -129,16 +129,25 @@ public class AdminController {
 			
 		}
 		v.setFk_id_persona(personaEsistente.getId());
-		Vettura vetturaInserita = vetturaS.aggiungiVettura(v);
-		if (vetturaInserita != null) {
-			pratica.setFkIdVettura(vetturaInserita.getId());
-
+		
+		//vettura
+		
+ 		Vettura vetturaEsistente = vetturaS.findVettura(v.getTarga());
+		if (vetturaEsistente != null) {
+			pratica.setFkIdVettura(vetturaEsistente.getId());
+		}else {
+			 vetturaEsistente = vetturaS.aggiungiVettura(v);
 		}
+		
 		pratica.setFkIdPersona(personaEsistente.getId());
 		praticaS.aggiungiPratica(pratica);
 		return ResponseEntity.ok().build();
 	}
 
+	
+	
+	
+	
 	@PostMapping("/modificaPratica")
 	public ResponseEntity<Pratica> modificaPratica(@RequestBody Pratica pratica) {
 		if (!praticaS.modificaPratica(pratica)) {

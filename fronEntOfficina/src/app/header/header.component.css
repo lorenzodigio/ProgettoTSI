@@ -20,13 +20,12 @@ header {
 .navigation {
   display: flex;
   align-items: center;
-  /* width: 200%;  Adjust this width as needed */
 }
 
 .navigation li {
   list-style: none;
   /*ogni rem sono 16 pixel*/
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 
 .navigation a {
