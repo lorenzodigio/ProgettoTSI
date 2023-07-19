@@ -113,10 +113,14 @@ export class PraticaComponent {
             this.toast.error('Errore: Persona già esistente.');
             this.router.navigate(['/admin/home/pratiche']);
             break;
-          case 403:
+          case 422:
             this.toast.error('Errore: Vettura già esistente.');
             this.router.navigate(['/admin/home/pratiche']);
             break;
+            case 500:
+              this.toast.error('Errore: Pratica già esistente.');
+              this.router.navigate(['/admin/home/pratiche']);
+              break;
         }
       },
     });

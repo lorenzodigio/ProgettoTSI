@@ -44,7 +44,13 @@ public class VetturaService {
 	public List<Vettura> getVettureUtente(Long id) {
 		return vetturaR.findAllByFkIdPersona(id);
 	}
+	
 	public Vettura findVettura(String targa) {
-		return vetturaR.findByTarga(targa);
+		Vettura vettura = vetturaR.findByTarga(targa);
+		if(vettura != null) {
+			return vettura;
+		}
+		return null;
+		
 	}
 }

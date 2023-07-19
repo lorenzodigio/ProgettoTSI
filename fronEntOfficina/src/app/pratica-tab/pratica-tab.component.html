@@ -10,7 +10,6 @@
       <th>Nome Pratica</th>
       <th>Inizio Pratica</th>
       <th>In Lavorazione</th>
-      <th>Fine Pratica</th>
       <th>Azioni</th>
     </tr>
   </thead>
@@ -36,13 +35,6 @@
             <option value="1" [selected]="pratica.incorso == 1">Si</option>
             <option value="0" [selected]="pratica.incorso == 0">No</option>
           </select>
-        </td>
-        <td>
-          <mat-form-field>
-            <input matInput [id]="'finePratica' + pratica.id" [disabled]="!isModificaEnabled[pratica.id]" [(ngModel)]="pratica.finePratica" class="datepicker-input" [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
         </td>
         <td>
           <button *ngIf="isModificaEnabled[pratica.id]; else editButton" (click)="modificaPratica(pratica.id)">

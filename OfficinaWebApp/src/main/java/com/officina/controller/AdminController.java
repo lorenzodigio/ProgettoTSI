@@ -17,6 +17,7 @@ import com.officina.entity.DataModel;
 import com.officina.entity.Persona;
 import com.officina.entity.Pratica;
 import com.officina.entity.Vettura;
+import com.officina.exception.VetturaExistException;
 import com.officina.service.PersonaService;
 import com.officina.service.PraticaService;
 import com.officina.service.VetturaService;
@@ -116,32 +117,39 @@ public class AdminController {
 
 	@PostMapping("/aggiungiPratica")
 	public ResponseEntity<Pratica> addPratica(@RequestBody DataModel richiesta) {
-		Pratica pratica = richiesta.getPratica();
-		Vettura v = richiesta.getVettura();
-		Persona p = richiesta.getPersona();
+	    Pratica pratica = richiesta.getPratica();
+	    Vettura v = richiesta.getVettura();
+	    Persona p = richiesta.getPersona();
+	    Long idPersona = p.getId();
+	    Boolean personaTrovata = praticaS.findPratica(idPersona);
+	    if (personaTrovata) {
+	        return ResponseEntity.internalServerError().build();
+	    }
 
-		Persona personaEsistente = personaS.getPersonaByCodiceFiscale(p.getCodiceFiscale());
-		if (personaEsistente != null) {
-			p.setId(personaEsistente.getId());
+	    Persona personaEsistente = personaS.getPersonaByCodiceFiscale(p.getCodiceFiscale());
+	    if (personaEsistente != null) {
+	        p.setId(personaEsistente.getId());
+	    } else {
+	        personaEsistente = personaS.inserisciPersona(p);
+	    }
 
-		} else {
-			 personaEsistente = personaS.inserisciPersona(p);
-			
-		}
-		v.setFk_id_persona(personaEsistente.getId());
-		
-		//vettura
-		
- 		Vettura vetturaEsistente = vetturaS.findVettura(v.getTarga());
-		if (vetturaEsistente != null) {
-			pratica.setFkIdVettura(vetturaEsistente.getId());
-		}else {
-			 vetturaEsistente = vetturaS.aggiungiVettura(v);
-		}
-		
-		pratica.setFkIdPersona(personaEsistente.getId());
-		praticaS.aggiungiPratica(pratica);
-		return ResponseEntity.ok().build();
+	    v.setFk_id_persona(personaEsistente.getId());
+
+	    Vettura vetturaEsistente = vetturaS.findVettura(v.getTarga());
+	    if (vetturaEsistente != null) {
+	        // Controlla se la vettura è già associata a una persona diversa
+	        if (vetturaEsistente.getFkIdPersona() != null && !vetturaEsistente.getFkIdPersona().equals(personaEsistente.getId())) {
+	            return ResponseEntity.unprocessableEntity().build(); // Potresti usare un altro status code, se appropriato
+	        }
+	        pratica.setFkIdVettura(vetturaEsistente.getId());
+	    } else {
+	        vetturaEsistente = vetturaS.aggiungiVettura(v);
+	        pratica.setFkIdVettura(vetturaEsistente.getId());
+	    }
+
+	    pratica.setFkIdPersona(personaEsistente.getId());
+	    praticaS.aggiungiPratica(pratica);
+	    return ResponseEntity.ok().build();
 	}
 
 	

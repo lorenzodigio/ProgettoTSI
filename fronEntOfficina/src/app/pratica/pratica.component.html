@@ -83,10 +83,8 @@
     </div>
   </div>
   
-
   <!-- Campo a Tendina per le Vetture -->
-  <h3>Vettura</h3>
-  <div>
+  <div class = "menu">
     <mat-select placeholder="Vetture Caricate" name="campoTendina" [(ngModel)]="vettura" required [disabled]="personaC || vetturaC2 ">
       <mat-option *ngFor="let v of vettureFiltrate" [value]="v">{{ v.targa }}:{{ v.modello }}</mat-option>
     </mat-select>

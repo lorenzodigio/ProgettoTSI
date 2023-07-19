@@ -1,4 +1,6 @@
 package com.officina.service;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,14 @@ public class PraticaService {
 	public void aggiungiPratica(Pratica pratica) {
 		praticaR.save(pratica);
 	}
-
+	
+	public boolean findPratica(Long id) {
+		Pratica pratica = praticaR.findPraticaByPersona(id);
+		if( pratica != null) {
+			return true;
+		}
+		return false;
+	}
 	public boolean eliminaPratica(Long id) {
 		if (!praticaR.existsById(id)) {
 			return false;
@@ -39,12 +48,9 @@ public class PraticaService {
 			if (praticaR.existsById(pratica.getId())) {
 				praticaDB.setNomePratica(pratica.getNomePratica());
 				praticaDB.setInizioPratica(pratica.getInizioPratica());
-				praticaDB.setFinePratica(pratica.getFinePratica());
-				if (praticaDB.getFinePratica() != null) {
-					praticaDB.setIncorso(0L);
-				} else {
-					praticaDB.setIncorso(1L);
-					
+				praticaDB.setIncorso(pratica.getIncorso());
+				if (praticaDB.getIncorso() == 0L) {
+					praticaDB.setFinePratica(Date.valueOf(LocalDate.now()));
 				}
 				praticaDB.setDescrizione(pratica.getDescrizione());
 				praticaDB.setFkIdVettura(pratica.getFkIdVettura());
