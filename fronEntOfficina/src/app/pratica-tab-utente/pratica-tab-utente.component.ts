@@ -23,12 +23,10 @@ import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
 export class PraticaTabUtenteComponent implements OnInit {
   pratiche: Pratica[] = []; // Dati delle persones
   forms: FormGroup[] = []; // Array di FormGroup per i form
-  isClicked: boolean = false;
   praticaSelezionata: Pratica | undefined;
   personaSelezionata: Persona | undefined;
   vetturaSelezionata: Vettura | undefined;
   expanded: boolean[] = [];
-  dettagliPraticaVisible = false;
   pratica: Pratica = new Pratica();
   formattedFinePratica: string = '';
   richieste : dataModel[] = [];
@@ -48,7 +46,9 @@ export class PraticaTabUtenteComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authService.getCurrentUser();
-    console.log('Utente' + JSON.stringify(this.currentUser));
+    localStorage.removeItem("archivio-utente")
+    localStorage.removeItem("richieste")
+    localStorage.removeItem("archivio")
     this.caricaPratiche();
   }
   caricaPratiche() {
@@ -56,6 +56,8 @@ export class PraticaTabUtenteComponent implements OnInit {
     this.praticaTabUtenteService.getPraticaUtente(this.currentUser.id).subscribe({
       next: (richieste: dataModel[]) => {
         console.log("richieste"+ richieste); 
+        const richiesteJSON = JSON.stringify(richieste);
+        localStorage.setItem('pratiche-utente', richiesteJSON);
         
         if (Array.isArray(richieste)) {
           this.pratiche = richieste.map(({ pratica }) => pratica);
@@ -104,40 +106,31 @@ export class PraticaTabUtenteComponent implements OnInit {
     }
   }
 
-
- 
-  selezionaPratica(pratica: Pratica): void {
-    this.praticaSelezionata = pratica;
-    // Puoi anche fare altre operazioni o chiamate a servizi qui se necessario
-  }
-  toggleDettagliPratica(pratica: Pratica): void {
-    if (this.praticaSelezionata === pratica) {
-      this.praticaSelezionata = undefined;
-    } else {
-      this.praticaSelezionata = pratica;
-      this.dettagliPraticaVisible = !this.dettagliPraticaVisible;
+  apriDialog(pratica: Pratica) {
+    const datiPratiche = localStorage.getItem('pratiche-utente');
+    if (datiPratiche) {
+      const datiPraticheArray: dataModel[] = JSON.parse(datiPratiche);
+  
+      // Trova la pratica corrispondente con l'id fornito
+      const praticaCorrispondente = datiPraticheArray.find((p) => p.pratica.id === pratica.id);
+  
+      if (praticaCorrispondente) {
+      
+        const dialogRef = this.dialog.open(PopupDialogComponent, {
+          height: '400px',
+          width: '600px',
+          data: {
+            persona: praticaCorrispondente.persona,
+            vettura: praticaCorrispondente.vettura,
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log('Dialog chiuso');
+        });
+      } else {
+        console.log('Vettura o persona associata non trovata.');
+      }
     }
   }
-  isDettagliPraticaVisible(pratica: Pratica): boolean {
-    return this.praticaSelezionata && this.praticaSelezionata.id === pratica.id || false;
-  }
-  
-  // Funzione per chiudere i dettagli della pratica quando viene cliccato l'overlay
-  chiudiDettagliPratica() {
-    this.dettagliPraticaVisible = false;
-  }
-apriDialog(pratica: Pratica) {
-  const dialogRef = this.dialog.open(PopupDialogComponent, {
-    width: '400px',
-    data: {
-      persona: this.personaSelezionata,
-      vettura: this.vetturaSelezionata
-    }
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('Dialog chiuso');
-  });
-}
-  
 }

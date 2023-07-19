@@ -27,13 +27,15 @@ export class ArchivioComponent {
     private dialog : MatDialog
   ) {}
   ngOnInit() {
+    localStorage.removeItem("richieste")
     this.caricaPratiche();
   }
   caricaPratiche() {
     this.praticaTabService.getArchivio().subscribe({
       next: (richieste: dataModel[]) => {
-        console.log(richieste); // Verifica il valore dell'array richieste nella console
-        
+        console.log(richieste); 
+        const richiesteJSON = JSON.stringify(richieste);
+        localStorage.setItem('archivio', richiesteJSON);
         if (Array.isArray(richieste)) {
           this.pratiche = richieste.map(({ pratica }) => pratica);
           const { vettura, persona } = richieste[0];
@@ -49,18 +51,32 @@ export class ArchivioComponent {
     });
   }
   apriDialog(pratica: Pratica) {
-    const dialogRef = this.dialog.open(PopupDialogComponent, {
-      height: '400px',
-      width: '600px',
-      data: {
-        persona: this.personaSelezionata,
-        vettura: this.vetturaSelezionata
-      }
-    });
+    const datiPratiche = localStorage.getItem('archivio');
+    if (datiPratiche) {
+      const datiPraticheArray: dataModel[] = JSON.parse(datiPratiche);
   
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog chiuso');
-    });
+      // Trova la pratica corrispondente con l'id fornito
+      const praticaCorrispondente = datiPraticheArray.find((p) => p.pratica.id === pratica.id);
+  
+      if (praticaCorrispondente) {
+        console.log('Sono id ' + praticaCorrispondente.pratica.id);
+  
+        const dialogRef = this.dialog.open(PopupDialogComponent, {
+          height: '400px',
+          width: '600px',
+          data: {
+            persona: praticaCorrispondente.persona,
+            vettura: praticaCorrispondente.vettura,
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log('Dialog chiuso');
+        });
+      } else {
+        console.log('Vettura o persona associata non trovata.');
+      }
+    }
   }
 
 }

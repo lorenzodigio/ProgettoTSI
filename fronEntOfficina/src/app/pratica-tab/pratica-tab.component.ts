@@ -49,6 +49,7 @@ export class PraticaTabComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    localStorage.removeItem("archivio")
     this.caricaPratiche();
   }
 

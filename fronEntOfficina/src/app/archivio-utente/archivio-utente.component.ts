@@ -24,7 +24,6 @@ import { ArchivioUtenteService } from './archvio-utente-service';
 export class ArchivioUtenteComponent implements OnInit {
   pratiche: Pratica[] = []; // Dati delle persones
   forms: FormGroup[] = []; // Array di FormGroup per i form
-  isClicked: boolean = false;
   praticaSelezionata: Pratica | undefined;
   personaSelezionata: Persona | undefined;
   vetturaSelezionata: Vettura | undefined;
@@ -33,7 +32,7 @@ export class ArchivioUtenteComponent implements OnInit {
   pratica: Pratica = new Pratica();
   formattedFinePratica: string = '';
   richieste: dataModel[] = [];
-  currentUser: Persona | undefined;
+  currentUser?: Persona;
 
   faPlus = faPlus;
   faEdit = faEdit;
@@ -49,14 +48,17 @@ export class ArchivioUtenteComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.authService.getCurrentUser();
     console.log('Utente' + JSON.stringify(this.currentUser));
+    localStorage.removeItem("richieste-utente")
+    localStorage.removeItem("richieste")
+    localStorage.removeItem("archivio")
     this.caricaPratiche();
   }
   caricaPratiche() {
     if (this.currentUser) {
       this.archivioUtente.getPraticaUtente(this.currentUser.id).subscribe({
         next: (richieste: dataModel[]) => {
-          console.log('richieste' + richieste);
-
+          const richiesteJSON = JSON.stringify(richieste);
+          localStorage.setItem('archivio-utente', richiesteJSON);
           if (Array.isArray(richieste)) {
             this.pratiche = richieste.map(({ pratica }) => pratica);
             const { vettura, persona } = richieste[0];
@@ -71,7 +73,6 @@ export class ArchivioUtenteComponent implements OnInit {
           }
         },
         error: () => {
-          console.error('Errore durante il recupero delle pratiche:');
         },
       });
     }
@@ -110,16 +111,30 @@ export class ArchivioUtenteComponent implements OnInit {
   }
 
   apriDialog(pratica: Pratica) {
-    const dialogRef = this.dialog.open(PopupDialogComponent, {
-      width: '400px',
-      data: {
-        persona: this.personaSelezionata,
-        vettura: this.vetturaSelezionata,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog chiuso');
-    });
+    const datiPratiche = localStorage.getItem('archivio-utente');
+    if (datiPratiche) {
+      const datiPraticheArray: dataModel[] = JSON.parse(datiPratiche);
+  
+      // Trova la pratica corrispondente con l'id fornito
+      const praticaCorrispondente = datiPraticheArray.find((p) => p.pratica.id === pratica.id);
+  
+      if (praticaCorrispondente) {
+  
+        const dialogRef = this.dialog.open(PopupDialogComponent, {
+          height: '400px',
+          width: '600px',
+          data: {
+            persona: praticaCorrispondente.persona,
+            vettura: praticaCorrispondente.vettura,
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log('Dialog chiuso');
+        });
+      } else {
+        console.log('Vettura o persona associata non trovata.');
+      }
+    }
   }
 }
