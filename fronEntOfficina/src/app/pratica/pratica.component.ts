@@ -16,7 +16,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pratica',
@@ -31,12 +31,15 @@ export class PraticaComponent {
   vettura: Vettura = new Vettura();
   persone: Persona[] = []; // Array per i dati delle persone dal database
   vetture: Vettura[] = []; // Array per i dati delle vetture dal database
-  campoPersona: boolean = false;
-  campoVettura: boolean = false;
   personaSelezionata: any = null;
   currentDate: string = '';
-  disabilitaMenuVettura: boolean = false;
   vettureFiltrate: Vettura[] = []; // Array per i dati delle vetture dal database
+  vetturaC = false; // Initialize the variable to false
+  personaC = false;
+  personaC2 = true;
+  vetturaC2 = false;
+
+
 
   codiceFiscaleControl = new FormControl('', Validators.required);
   matcherF = new MyErrorStateMatcher();
@@ -68,12 +71,14 @@ export class PraticaComponent {
 
   selezionaUtente(id: number) {
     console.log('selezionaUtente called with id:', id);
+    this.personaC2 = false;
     this.vetturaService
       .getVettureByPersona(id)
       .subscribe((vetture: Vettura[]) => {
         this.vettureFiltrate = vetture;
         console.log(this.vettureFiltrate);
-        this.personaSelezionata = true;
+        this.vetturaC = true;
+        console.log(this.vetturaC)
       });
   }
 
@@ -81,6 +86,7 @@ export class PraticaComponent {
     if (this.vettura.tagliando && this.vettura.immatricolazione) {
       const tagliandoDate = new Date(this.vettura.tagliando);
       const immatricolazioneDate = new Date(this.vettura.immatricolazione);
+      this.vetturaC = true;
 
       if (tagliandoDate < immatricolazioneDate) {
         this.toast.error('La data del tagliando non può essere precedente alla data di immatricolazione.');
@@ -96,7 +102,6 @@ export class PraticaComponent {
       persona: this.persona,
       vettura: this.vettura,
     };
-    this.disabilitaMenuVettura = true;
     this.praticaService.inserisciPratica(data).subscribe({
       next: () => {
         this.toast.success('Pratica Inserita Correttamente');
@@ -120,14 +125,7 @@ export class PraticaComponent {
     const currentDate = moment().format('YYYY-MM-DD');
     this.pratica.inizioPratica = currentDate;
   }
-  mostraCampoPersona() {
-    this.campoPersona = !this.campoPersona;
-    this.campoVettura = false;
-  }
-  showCampiVettura() {
-    this.campoVettura = !this.campoVettura;
-    this.campoPersona = false;
-  }
+
 
   codiceFiscaleValidator(control: AbstractControl): ValidationErrors | null {
     if (control instanceof FormControl) {
@@ -147,6 +145,17 @@ export class PraticaComponent {
 
     return null; // Il Codice Fiscale è valido
   }
+
+togglePersonaForm() {
+  this.personaC = !this.personaC;
+  this.vetturaC = true;
+}
+
+toggleVetturaForm() {
+  this.vetturaC = !this.vetturaC;
+  this.vetturaC2 = true;
+}
+
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(

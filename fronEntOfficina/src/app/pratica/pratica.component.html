@@ -30,22 +30,19 @@
   
   <!-- Campo a Tendina per le Persone -->
   <div>
-    
-    <mat-select placeholder="Utenti caricati" name ="tenda" [(ngModel)]="persona" required  (selectionChange)="selezionaUtente(persona.id)">
+    <mat-select placeholder="Utenti caricati" name="tenda" [(ngModel)]="persona" required 
+                (selectionChange)="selezionaUtente(persona.id)" [disabled]="personaC">
       <mat-option *ngFor="let p of persone" [value]="p">{{ p.codiceFiscale }} : {{ p.nome }} {{ p.cognome }}</mat-option>
     </mat-select>
-
-    <button type="button"(click)="mostraCampoPersona()">+</button>
+    <button type="button" [disabled]="!personaC2" (click)="togglePersonaForm()">+</button>
   </div>
-  <div [hidden]="!campoPersona">
-    <div *ngIf="!personaSelezionata">
+  <div [hidden] = "!personaC">
       <div>
         <mat-form-field class="mat">
           <mat-label for="nome"> Nome: </mat-label>
           <mat-icon matSuffix>person</mat-icon>
           <input matInput  name="nome" [(ngModel)]="persona.nome" required>
         </mat-form-field>
-      </div>
       <div>
         <mat-form-field class="mat">
           <mat-label for="nome"> Cognome: </mat-label>
@@ -90,20 +87,17 @@
   <!-- Campo a Tendina per le Vetture -->
   <h3>Vettura</h3>
   <div>
-    <mat-select placeholder="Vetture" name="campoTendina" [(ngModel)]="vettura" required [disabled]="disabilitaMenuVettura">
+    <mat-select placeholder="Vetture Caricate" name="campoTendina" [(ngModel)]="vettura" required [disabled]="personaC || vetturaC2 ">
       <mat-option *ngFor="let v of vettureFiltrate" [value]="v">{{ v.targa }}:{{ v.modello }}</mat-option>
     </mat-select>
-  
-    <button type="button"  [disabled]="personaSelezionata" (click)="showCampiVettura()">+</button>
+    <button type="button" [disabled]="!vetturaC" (click)="toggleVetturaForm()">+</button>
   </div>
-  <div [hidden]="!campoVettura">
-    <div>
+  <div [hidden] = "!vetturaC2">
       <mat-form-field class="mat">
         <mat-label for="targa"> Targa: </mat-label>
         <mat-icon matSuffix>electric_car</mat-icon>
         <input matInput  name="targa" [(ngModel)]="vettura.targa" required>
       </mat-form-field>
-    </div>
     <div>
       <mat-form-field class="mat">
         <mat-icon matSuffix>electric_car</mat-icon>
