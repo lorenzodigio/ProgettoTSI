@@ -13,7 +13,7 @@ export class Pratica {
       this.nomePratica = '';
       this.inizioPratica = '';
       this.finePratica = '';
-      this.incorso = 1;
+      this.incorso = 0;
       this.descrizione = '';
       this.fk_id_vettura = 0;
       this.fk_id_persona_pratica = 0;

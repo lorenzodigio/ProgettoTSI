@@ -44,6 +44,7 @@ import { ArchivioUtenteComponent } from './archivio-utente/archivio-utente.compo
 import { ToastrModule } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { provideToastr } from 'ngx-toastr';
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatProgressBarModule,
     ToastrModule.forRoot({
       positionClass: "toastr-center",
       timeOut: 3000,

@@ -51,7 +51,7 @@ public class PraticaService {
 				praticaDB.setNomePratica(pratica.getNomePratica());
 				praticaDB.setInizioPratica(pratica.getInizioPratica());
 				praticaDB.setIncorso(pratica.getIncorso());
-				if (praticaDB.getIncorso() == 0L) {
+				if (praticaDB.getIncorso() == 4L) {
 					praticaDB.setFinePratica(Date.valueOf(LocalDate.now()));
 				}
 				praticaDB.setDescrizione(pratica.getDescrizione());
@@ -84,7 +84,7 @@ public class PraticaService {
 
 	public Pratica getPraticaByPersona(Long idPersona) {
 		
-		Pratica pratica = praticaR.findPraticaInLavorazione(idPersona);
+		Pratica pratica = praticaR.findPraticaByPersona(idPersona);
 		return pratica;
 	}
 

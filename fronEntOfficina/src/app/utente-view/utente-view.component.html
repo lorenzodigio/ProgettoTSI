@@ -1,6 +1,10 @@
-<div class="vettura" *ngFor="let vettura of vetturaUtente">
-    <p>Targa Vettura: {{ vettura?.targa }}</p>
-    <p>Modello Vettura: {{ vettura?.modello }}</p>
-    <p>Immatricolazione Vettura: {{ vettura?.immatricolazione }}</p>
+<div class="vettura" *ngFor="let pratica of praticaUtente">
+  <p>Targa Vettura: {{ pratica!.vettura.targa }}</p>
+  <p>Modello Vettura: {{ pratica!.vettura.modello }}</p>
+  <p>Immatricolazione Vettura: {{ pratica!.vettura.immatricolazione }}</p>
+    <mat-progress-bar
+      mode="determinate"
+      value="{{pratica.pratica.incorso/4*100}}"
+    ></mat-progress-bar>
+    <p>IN CORSO {{pratica.pratica.incorso/4*100}}%</p>
   </div>
-  

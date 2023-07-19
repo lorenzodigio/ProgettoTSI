@@ -8,26 +8,22 @@ import org.springframework.data.repository.query.Param;
 import com.officina.entity.Pratica;
 
 public interface PraticaRepository extends JpaRepository<Pratica, Long> {
-    @Query("SELECT p FROM Pratica p WHERE p.incorso = 0 ORDER BY p.finePratica DESC")
+    @Query("SELECT p FROM Pratica p WHERE p.incorso = 4 ORDER BY p.finePratica DESC")
     List<Pratica> findPraticaByStato();
 
-    @Query("SELECT p FROM Pratica p WHERE p.incorso = 1")
+    @Query("SELECT p FROM Pratica p WHERE p.incorso < 4")
     List<Pratica> findPraticaInLavorazione();
 
     List<Pratica> findAllByFkIdPersona(Long FkId);
     
-    @Query("SELECT p FROM Pratica p WHERE p.incorso = 1 AND p.fkIdPersona = :FkIdPersona")
+    @Query("SELECT p FROM Pratica p WHERE p.incorso < 4 AND p.fkIdPersona = :FkIdPersona")
     Pratica findPraticaByPersona(@Param("FkIdPersona") Long FkIdPersona);
     
-    @Query("SELECT p FROM Pratica p WHERE p.incorso = 1 AND p.fkIdPersona = :FkIdPersona")
+    @Query("SELECT p FROM Pratica p WHERE p.incorso < 4 AND p.fkIdPersona = :FkIdPersona")
     List<Pratica> findPraticaInLavorazioneByUser(@Param("FkIdPersona") Long FkIdPersona);
 
-    @Query("SELECT p FROM Pratica p WHERE p.incorso = 0 AND p.fkIdPersona = :FkIdPersona")
+    @Query("SELECT p FROM Pratica p WHERE p.incorso = 4 AND p.fkIdPersona = :FkIdPersona")
     List<Pratica> findPraticaChiusaByUser(@Param("FkIdPersona") Long FkIdPersona);
-    
-    @Query("SELECT p FROM Pratica p WHERE p.incorso = 1 AND p.fkIdPersona = :FkIdPersona")
-    Pratica findPraticaInLavorazione(@Param("FkIdPersona") Long FkIdPersona);
-
 
 }
 

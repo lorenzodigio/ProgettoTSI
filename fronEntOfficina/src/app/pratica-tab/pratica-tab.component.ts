@@ -49,7 +49,7 @@ export class PraticaTabComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    localStorage.removeItem("archivio")
+    localStorage.removeItem('archivio');
     this.caricaPratiche();
   }
 
@@ -163,32 +163,35 @@ export class PraticaTabComponent implements OnInit {
   }
 
   apriDialog(pratica: Pratica) {
-    const datiPratiche = localStorage.getItem('richieste');
-    if (datiPratiche) {
-      const datiPraticheArray: dataModel[] = JSON.parse(datiPratiche);
-  
-      // Trova la pratica corrispondente con l'id fornito
-      const praticaCorrispondente = datiPraticheArray.find((p) => p.pratica.id === pratica.id);
-  
-      if (praticaCorrispondente) {
-        console.log('Sono id ' + praticaCorrispondente.pratica.id);
-  
-        const dialogRef = this.dialog.open(PopupDialogComponent, {
-          height: '400px',
-          width: '600px',
-          data: {
-            persona: praticaCorrispondente.persona,
-            vettura: praticaCorrispondente.vettura,
-          },
-        });
-  
-        dialogRef.afterClosed().subscribe((result) => {
-          console.log('Dialog chiuso');
-        });
-      } else {
-        console.log('Vettura o persona associata non trovata.');
+    if (!this.isModificaEnabled[pratica.id]) {
+      const datiPratiche = localStorage.getItem('richieste');
+      if (datiPratiche) {
+        const datiPraticheArray: dataModel[] = JSON.parse(datiPratiche);
+
+        // Trova la pratica corrispondente con l'id fornito
+        const praticaCorrispondente = datiPraticheArray.find(
+          (p) => p.pratica.id === pratica.id
+        );
+
+        if (praticaCorrispondente) {
+          console.log('Sono id ' + praticaCorrispondente.pratica.id);
+
+          const dialogRef = this.dialog.open(PopupDialogComponent, {
+            height: '400px',
+            width: '600px',
+            data: {
+              persona: praticaCorrispondente.persona,
+              vettura: praticaCorrispondente.vettura,
+            },
+          });
+
+          dialogRef.afterClosed().subscribe((result) => {
+            console.log('Dialog chiuso');
+          });
+        } else {
+          console.log('Vettura o persona associata non trovata.');
+        }
       }
     }
   }
-  
 }

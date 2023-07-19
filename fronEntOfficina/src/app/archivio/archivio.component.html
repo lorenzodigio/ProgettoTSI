@@ -28,8 +28,11 @@
           </td>
           <td>
             <select [id]="'ruolo-' + pratica.id" [disabled]="!isModificaEnabled[pratica.id]" [(ngModel)]="pratica.incorso">
-              <option value="1" [selected]="pratica.incorso == 1">Si</option>
-              <option value="0" [selected]="pratica.incorso == 0">No</option>
+              <option value="0" [selected]="pratica.incorso == 0">Inizio Pratica</option>
+              <option value="1" [selected]="pratica.incorso == 1">Pezzi Ordinati</option>
+              <option value="2" [selected]="pratica.incorso == 2">Pezzi Arrivati</option>
+              <option value="3" [selected]="pratica.incorso == 3">Macchina in Lavorazione</option>
+              <option value="4" [selected]="pratica.incorso == 4">Fine Pratica</option>
             </select>
           </td>
           <td>

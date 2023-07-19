@@ -18,6 +18,7 @@ import com.officina.entity.Persona;
 import com.officina.entity.Pratica;
 import com.officina.entity.Vettura;
 import com.officina.exception.VetturaExistException;
+import com.officina.service.EmailSenderService;
 import com.officina.service.PersonaService;
 import com.officina.service.PraticaService;
 import com.officina.service.VetturaService;
@@ -32,11 +33,15 @@ public class AdminController {
 	VetturaService vetturaS;
 	@Autowired
 	PraticaService praticaS;
+	@Autowired
+	EmailSenderService emailsender;
 
-	public AdminController(PersonaService personaS, VetturaService vetturaS, PraticaService praticaS) {
+	public AdminController(PersonaService personaS, VetturaService vetturaS, PraticaService praticaS,
+			EmailSenderService emailSender) {
 		this.personaS = personaS;
 		this.vetturaS = vetturaS;
 		this.praticaS = praticaS;
+		this.emailsender = emailSender;
 	}
 
 	/*
@@ -157,6 +162,13 @@ public class AdminController {
 
 		pratica.setFkIdPersona(personaEsistente.getId());
 		praticaS.aggiungiPratica(pratica);
+		String subject = "Pratica aperta con successo ";
+		String body = "Gentile " + personaEsistente.getNome() + ",\nLa sua pratica è stata aperta con successo.\n"
+				+ "Di seguito troverai le tue informazioni della pratica:\n" + "Nome Pratica: "
+				+ pratica.getNomePratica() + "\n" + "inizioPratica: " + pratica.getInizioPratica() + "\n"
+				+ "Descrizione: " + pratica.getDescrizione() + "\n" + "Officina Veneta ti ringrazia";
+
+		emailsender.sendEmail(personaEsistente.getEmail(), subject, body);
 		return ResponseEntity.ok().build();
 	}
 
