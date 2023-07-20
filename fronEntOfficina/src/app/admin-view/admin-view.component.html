@@ -4,5 +4,10 @@
    <p>ID PRATICA: {{ pratica?.id }}</p>
    <p>NOME PRATICA: {{ pratica?.nomePratica }}</p>
    <p>INIZIO PRATICA: {{ pratica?.inizioPratica }}</p>
+   <mat-progress-bar
+   mode="determinate"
+   value="{{pratica.incorso/4*100}}"
+ ></mat-progress-bar>
+ <p>IN CORSO {{pratica.incorso/4*100}}%</p>
 </div>
   
