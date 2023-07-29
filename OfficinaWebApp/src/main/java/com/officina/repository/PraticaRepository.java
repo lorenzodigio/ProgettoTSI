@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import com.officina.entity.Pratica;
 
 public interface PraticaRepository extends JpaRepository<Pratica, Long> {
-    @Query("SELECT p FROM Pratica p WHERE p.incorso = 4 ORDER BY p.finePratica DESC")
+    @Query("SELECT p FROM Pratica p WHERE p.incorso = 4 ORDER BY p.finePratica ASC")
     List<Pratica> findPraticaByStato();
 
     @Query("SELECT p FROM Pratica p WHERE p.incorso < 4")

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PraticaTabService } from './praticaTabService';
+import { AdminService } from '../service/admin.service';
 import { Pratica } from '../model/pratica.model';
 import {
   faPlus,
@@ -10,10 +10,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
 import { Router } from '@angular/router';
-import { Vettura } from '../vettura/vettura.model';
-import { Persona } from '../inserimento Persona/persona.model';
+import { Vettura } from '../model/vettura.model';
+import { Persona } from '../model/persona.model';
 import * as moment from 'moment';
-import { dataModel } from './data.model';
+import { dataModel } from '../model/data.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 
@@ -42,7 +42,7 @@ export class PraticaTabComponent implements OnInit {
   faSave = faSave;
   constructor(
     private formBuilder: FormBuilder,
-    private praticaTabService: PraticaTabService,
+    private praticaTabService: AdminService,
     private router: Router,
     private dialog: MatDialog,
     private toast: ToastrService

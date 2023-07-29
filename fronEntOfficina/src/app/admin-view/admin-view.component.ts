@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PraticaTabService } from '../pratica-tab/praticaTabService';
+import { AdminService } from '../service/admin.service';
 import { Pratica } from '../model/pratica.model';
-import { Persona } from '../inserimento Persona/persona.model';
-import { Vettura } from '../vettura/vettura.model';
-import { dataModel } from '../pratica-tab/data.model';
+import { Persona } from '../model/persona.model';
+import { Vettura } from '../model/vettura.model';
+import { dataModel } from '../model/data.model';
 @Component({
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',
@@ -17,7 +17,7 @@ export class AdminViewComponent implements OnInit {
   pratica: Pratica = new Pratica();
   richieste : dataModel[] = [];
 
-  constructor(private praticaTab : PraticaTabService){}
+  constructor(private praticaTab : AdminService){}
 
 
 

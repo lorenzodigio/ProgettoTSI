@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UtenteService } from './utenti.service';
-import { Persona } from '../inserimento Persona/persona.model';
+import { AdminService } from '../service/admin.service';
+import { Persona } from '../model/persona.model';
 import { faPlus, faEdit, faTrashAlt, faSave } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -27,7 +27,7 @@ export class UtentiComponent implements OnInit {
   faSave = faSave;
   constructor(
     private formBuilder: FormBuilder,
-    private utentiService: UtenteService,
+    private utentiService: AdminService,
     private router: Router,
     private toast: ToastrService) {}
 

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from './login.service';
-import { Login } from './login.model';
-import { Persona } from '../inserimento Persona/persona.model';
+import { AuthService } from '../service/login.service';
+import { Login } from '../model/login.model';
+import { Persona } from '../model/persona.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

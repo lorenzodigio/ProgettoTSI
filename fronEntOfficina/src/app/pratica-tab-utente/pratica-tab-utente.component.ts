@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PraticaTabUtenteService } from './pratica-tab-utente.service';
+import { UtenteService } from '../service/utente.service';
 import { Pratica } from '../model/pratica.model';
 import {
   faPlus,
@@ -8,11 +8,11 @@ import {
   faTrashAlt,
   faSave,
 } from '@fortawesome/free-solid-svg-icons';
-import { Vettura } from '../vettura/vettura.model';
-import { Persona } from '../inserimento Persona/persona.model';
-import { dataModel } from '../pratica-tab/data.model';
-import { AuthService } from '../login/login.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Vettura } from '../model/vettura.model';
+import { Persona } from '../model/persona.model';
+import { dataModel } from '../model/data.model';
+import { AuthService } from '../service/login.service';
+import { MatDialog,  } from '@angular/material/dialog';
 import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
 
 @Component({
@@ -39,7 +39,7 @@ export class PraticaTabUtenteComponent implements OnInit {
   faSave = faSave;
   constructor(
     private formBuilder: FormBuilder,
-    private praticaTabUtenteService: PraticaTabUtenteService,
+    private praticaTabUtenteService: UtenteService,
     private authService : AuthService,
     private dialog : MatDialog
   ) {}
@@ -53,7 +53,7 @@ export class PraticaTabUtenteComponent implements OnInit {
   }
   caricaPratiche() {
     if (this.currentUser) {
-    this.praticaTabUtenteService.getPraticaUtente(this.currentUser.id).subscribe({
+    this.praticaTabUtenteService.getPraticheUtente(this.currentUser.id).subscribe({
       next: (richieste: dataModel[]) => {
         console.log("richieste"+ richieste); 
         const richiesteJSON = JSON.stringify(richieste);

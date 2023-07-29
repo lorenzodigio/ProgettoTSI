@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from '../inserimento Persona/persona.model';
-import { Vettura } from '../vettura/vettura.model';
-import { UtenteViewService } from './utente-viewService';
-import { AuthService } from '../login/login.service';
+import { Persona } from '../model/persona.model';
+import { Vettura } from '../model/vettura.model';
+import { UtenteService } from '../service/utente.service';
+import { AuthService } from '../service/login.service';
 import { Pratica } from '../model/pratica.model';
-import { dataModel } from '../pratica-tab/data.model';
+import { dataModel } from '../model/data.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class UtenteViewComponent implements OnInit {
   
 
   constructor(
-    private utenteviewService: UtenteViewService,
+    private utenteviewService: UtenteService,
     private authService: AuthService
   ) {}
 

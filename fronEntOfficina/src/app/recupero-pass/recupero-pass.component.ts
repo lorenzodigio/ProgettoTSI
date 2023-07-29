@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RecuperoService } from './recuperoPass.service';
+import { AuthService } from '../service/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recupero-pass',
@@ -8,16 +9,17 @@ import { RecuperoService } from './recuperoPass.service';
 })
 export class RecuperoPassComponent {
   codiceFiscale = '';
-  constructor(private recuperoPass: RecuperoService) {}
+  constructor(private recuperoPass: AuthService,
+    private  toast: ToastrService) {}
 
   inviaRichiestaRecupero(codiceFiscale: string) {
     this.recuperoPass.postRecupero(codiceFiscale).subscribe({
       next: (response: Object) => {
-        alert("Recupero Password accettato, email inviata")
+        this.toast.success("Recupero Password accettato, email inviata")
         console.log('Richiesta POST inviata correttamente');
       },
       error: (error: any) => {
-        alert("Errore recupero passowrd: Codice Fiscale non valido")
+        this.toast.error("Errore recupero passowrd: Codice Fiscale non valido")
         console.error('Errore nell\'invio della richiesta POST', error);
       },
     });

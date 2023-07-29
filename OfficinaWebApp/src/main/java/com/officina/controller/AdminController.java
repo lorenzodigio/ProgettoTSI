@@ -120,19 +120,28 @@ public class AdminController {
 		return ResponseEntity.ok(richiestaList);
 	}
 
+	/*
+	 * Viene aggiunta una pratica
+	 */
 	@PostMapping("/aggiungiPratica")
 	public ResponseEntity<Pratica> addPratica(@RequestBody DataModel richiesta) {
+		//ho creato una classe di tipo dataModel che contiene al suo interno tutti e tre i pojo
 		Pratica pratica = richiesta.getPratica();
 		Vettura v = richiesta.getVettura();
 		Persona p = richiesta.getPersona();
+		//mi riprendo l'id della persona
 		Long idPersona = p.getId();
+		//trovo la pratica associata all id della persona
 		Boolean praticaTrovata = praticaS.findPratica(idPersona);
+		//iniziano i contolli per vedere se gia esiste una pratica con la stessa vettura
 		if (praticaTrovata) {
 			// Trovata la pratica associata alla persona, ora controlla la vettura
 			Pratica praticaEsistente = praticaS.getPraticaByPersona(idPersona);
 			Optional<Vettura> vetturaEsistente = vetturaS.findVetturaId(praticaEsistente.getFkIdVettura());
+			//controllo se la vetttura trovata nel db sia uguale a quella della vettura
 			if (vetturaEsistente.isPresent()) {
 				Vettura vetturaE = vetturaEsistente.get();
+				
 				if (vetturaEsistente != null && vetturaE.getTarga().equals(v.getTarga())) {
 					return ResponseEntity.internalServerError().build();
 				}
@@ -159,7 +168,6 @@ public class AdminController {
 			vetturaEsistente = vetturaS.aggiungiVettura(v);
 			pratica.setFkIdVettura(vetturaEsistente.getId());
 		}
-
 		pratica.setFkIdPersona(personaEsistente.getId());
 		praticaS.aggiungiPratica(pratica);
 		String subject = "Pratica aperta con successo ";

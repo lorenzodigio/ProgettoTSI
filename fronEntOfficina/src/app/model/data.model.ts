@@ -1,6 +1,6 @@
-import { Pratica } from '../model/pratica.model';
-import { Vettura } from '../vettura/vettura.model';
-import { Persona } from '../inserimento Persona/persona.model';
+import { Pratica } from './pratica.model';
+import { Vettura } from './vettura.model';
+import { Persona } from './persona.model';
 
 export class dataModel {
   pratica: Pratica;

@@ -8,13 +8,13 @@ import {
   faTrashAlt,
   faSave,
 } from '@fortawesome/free-solid-svg-icons';
-import { Vettura } from '../vettura/vettura.model';
-import { Persona } from '../inserimento Persona/persona.model';
-import { dataModel } from '../pratica-tab/data.model';
-import { AuthService } from '../login/login.service';
+import { Vettura } from '../model/vettura.model';
+import { Persona } from '../model/persona.model';
+import { dataModel } from '../model/data.model';
+import { AuthService } from '../service/login.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
-import { ArchivioUtenteService } from './archvio-utente-service';
+import { UtenteService } from '../service/utente.service';
 
 @Component({
   selector: 'app-arichivio-utente',
@@ -40,7 +40,7 @@ export class ArchivioUtenteComponent implements OnInit {
   faSave = faSave;
   constructor(
     private formBuilder: FormBuilder,
-    private archivioUtente: ArchivioUtenteService,
+    private archivioUtente: UtenteService,
     private authService: AuthService,
     private dialog: MatDialog
   ) {}
@@ -55,7 +55,7 @@ export class ArchivioUtenteComponent implements OnInit {
   }
   caricaPratiche() {
     if (this.currentUser) {
-      this.archivioUtente.getPraticaUtente(this.currentUser.id).subscribe({
+      this.archivioUtente.getArchivioUtente(this.currentUser.id).subscribe({
         next: (richieste: dataModel[]) => {
           const richiesteJSON = JSON.stringify(richieste);
           localStorage.setItem('archivio-utente', richiesteJSON);

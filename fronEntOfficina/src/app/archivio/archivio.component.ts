@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Persona } from '../inserimento Persona/persona.model';
+import { Persona } from '../model/persona.model';
 import { Pratica } from '../model/pratica.model';
-import { Vettura } from '../vettura/vettura.model';
-import { dataModel } from '../pratica-tab/data.model';
-import { PraticaTabService } from '../pratica-tab/praticaTabService';
+import { Vettura } from '../model/vettura.model';
+import { dataModel } from '../model/data.model';
+import { AdminService } from '../service/admin.service';
 import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -23,7 +23,7 @@ export class ArchivioComponent {
   formattedFinePratica: string = '';
   richieste : dataModel[] = [];
   constructor(
-    private praticaTabService: PraticaTabService,
+    private praticaTabService: AdminService,
     private dialog : MatDialog
   ) {}
   ngOnInit() {

@@ -27,12 +27,10 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { UtentiComponent } from './utenti/utenti.component';
 import { AuthGuard } from './auth-guard.service';
-
-import { AuthService } from './login/login.service';
-import { BodyClickService } from './header/header.service';
+import { AuthService } from './service/login.service';
+import { BodyClickService } from './service/header.service';
 import { PraticaComponent } from './pratica/pratica.component';
 import { RecuperoPassComponent } from './recupero-pass/recupero-pass.component';
-import { RecuperoService } from './recupero-pass/recuperoPass.service';
 import { VetturaComponent } from './vettura/vettura.component';
 import { PraticaTabComponent } from './pratica-tab/pratica-tab.component';
 import { ArchivioComponent } from './archivio/archivio.component';
@@ -94,7 +92,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
       preventDuplicates: true,
     }),
   ],
-  providers: [AuthService, BodyClickService,RecuperoService,AuthGuard,provideAnimations(),provideToastr()],
+  providers: [AuthService, BodyClickService,AuthGuard,provideAnimations(),provideToastr()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

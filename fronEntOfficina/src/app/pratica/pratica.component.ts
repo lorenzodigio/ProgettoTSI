@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { Vettura } from '../vettura/vettura.model';
-import { Persona } from '../inserimento Persona/persona.model';
+import { Vettura } from '../model/vettura.model';
+import { Persona } from '../model/persona.model';
 import { Pratica } from '../model/pratica.model';
-import { PraticaService } from './pratica.service';
 import { Router } from '@angular/router';
-import { UtenteService } from '../utenti/utenti.service';
-import { VetturaService } from '../vettura/vettura.service';
 import * as moment from 'moment';
 import {
   FormControl,
@@ -17,6 +14,7 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
+import { AdminService } from '../service/admin.service';
 
 @Component({
   selector: 'app-pratica',
@@ -45,10 +43,9 @@ export class PraticaComponent {
   matcherF = new MyErrorStateMatcher();
 
   constructor(
-    private praticaService: PraticaService,
+    private praticaService: AdminService,
     private router: Router,
-    private utentiService: UtenteService,
-    private vetturaService: VetturaService,
+    private utentiService: AdminService,
     private toast: ToastrService
   ) {
     this.codiceFiscaleControl.setValidators(this.codiceFiscaleValidator);
@@ -72,7 +69,7 @@ export class PraticaComponent {
   selezionaUtente(id: number) {
     console.log('selezionaUtente called with id:', id);
     this.personaC2 = false;
-    this.vetturaService
+    this.utentiService
       .getVettureByPersona(id)
       .subscribe((vetture: Vettura[]) => {
         this.vettureFiltrate = vetture;
