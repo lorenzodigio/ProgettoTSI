@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../service/admin.service';
 import { Pratica } from '../model/pratica.model';
@@ -17,9 +18,8 @@ export class AdminViewComponent implements OnInit {
   pratica: Pratica = new Pratica();
   richieste : dataModel[] = [];
 
-  constructor(private praticaTab : AdminService){}
-
-
+  constructor(private praticaTab : AdminService,
+    private router: Router){}
 
   ngOnInit() {
     this.caricaPratiche();

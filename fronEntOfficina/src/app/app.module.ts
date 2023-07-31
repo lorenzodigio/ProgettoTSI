@@ -43,6 +43,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -91,6 +92,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
       timeOut: 3000,
       preventDuplicates: true,
     }),
+    GoogleMapsModule
   ],
   providers: [AuthService, BodyClickService,AuthGuard,provideAnimations(),provideToastr()],
   bootstrap: [AppComponent]

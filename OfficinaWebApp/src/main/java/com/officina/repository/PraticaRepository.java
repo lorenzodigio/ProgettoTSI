@@ -25,5 +25,11 @@ public interface PraticaRepository extends JpaRepository<Pratica, Long> {
     @Query("SELECT p FROM Pratica p WHERE p.incorso = 4 AND p.fkIdPersona = :FkIdPersona")
     List<Pratica> findPraticaChiusaByUser(@Param("FkIdPersona") Long FkIdPersona);
 
+    @Query("SELECT p FROM Pratica p WHERE p.incorso < 4 AND p.fkIdPersona = :idPersona AND p.fkIdVettura = :idVettura")
+    List<Pratica> findPraticaByPersonaAndVettura(@Param("idPersona") Long idPersona, @Param("idVettura") Long idVettura);
+
+
+
+
 }
 
