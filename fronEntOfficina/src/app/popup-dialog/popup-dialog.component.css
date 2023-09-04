@@ -65,4 +65,18 @@
     color: #555;
     margin-bottom: 5px;
   }
+  .stamp {
+    display: flex;
+    justify-content: flex-end; /* Allinea il contenuto a destra */
+    align-items: flex-end; /* Allinea il contenuto in basso */
+  }
+   button {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
   
